@@ -1,10 +1,17 @@
 package vehicle;
-
+/**
+ * The Spy class represents a military Aerial vehicle, non-motorized for military use and have an energy score.
+ */
 import java.util.Objects;
 
 public class Spy extends Air implements noMotorized{
     private String power;
     private energyScore energy;
+    /**
+     * Constructs a Spy object with the given model, maximum number of passengers, maximum speed,
+     * and energy score. all data members is by default.
+     * @param power the source of power of the Spy.
+     */
     public Spy(String power) {
         super("private" ,1 , 50, "military");
         this.energy = energyScore.C;
@@ -38,6 +45,11 @@ public class Spy extends Air implements noMotorized{
                 " The energy score is: " + energy + ".";
     }
 
+    /**
+     * Checks if the spy vehicle is equal to another object.
+     * @param o the object to compare to
+     * @return true if the spy vehicle is equal to the object, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
