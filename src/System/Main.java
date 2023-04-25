@@ -3,11 +3,19 @@ import vehicle.*;
 
 import java.util.Scanner;
 
-
+/**
+ The master class is the main entry point of the car dealership program.
+ It allows users to add vehicles, purchase vehicles, take a vehicle for a test drive,
+ resetting the distance of all vehicles, changing the flag of all marine vehicles, and exit the program.
+ */
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
 
+    /**
+     * The main function of the program.
+     * It creates an array of Vehicle objects and allows users to perform various actions on them.
+     */
     public static void main(String[] args) {
         boolean finish = false;
         String addCar;
@@ -15,6 +23,8 @@ public class Main {
         Vehicle tmp;
         System.out.println("Welcome to the Vehicle Agency !");
         int choice = 0, count = 0;
+
+        // Add vehicles to the agency
         while (!finish) {
             System.out.println("Do you want to add a new vehicle to a Vehicle Agency? yes or no");
             addCar = sc.next();
@@ -25,6 +35,8 @@ public class Main {
                 finish = true;
             }
         }
+
+        // Perform actions on the vehicles
         while (true) {
             System.out.println("Please enter your choice:");
             System.out.println("1. Buy vehicle.");
@@ -35,6 +47,7 @@ public class Main {
             choice = sc.nextInt();
             switch (choice) {
                 case 1 -> {
+                    // Purchase a vehicle
                     print(vehicle);
                     count = 0;
                     tmp = createVehicle();
@@ -52,6 +65,7 @@ public class Main {
                     } else System.out.println("Successfully purchase.");
                 }
                 case 2 -> {
+                    // Test drive a vehicle
                     count = 0;
                     print(vehicle);
                     tmp = createVehicle();
@@ -69,12 +83,14 @@ public class Main {
                     }else System.out.println("The test drive passed.");
                 }
                 case 3 -> {
+                    // Reset the distance of all vehicles
                     for (int i = 0; i < vehicle.length; i++) {
                         vehicle[i].setKm(0);
                     }
                     System.out.println("All km vehicle has been reset.");
                 }
                 case 4 -> {
+                    // Change the flag of all marine vehicles
                     count = 0;
                     System.out.println("Enter the name of the flag.");
                     String flag = sc.next();
@@ -97,11 +113,21 @@ public class Main {
         }
     }
 
+    /**
+     * Print method that takes an array of Vehicle objects and prints out each object using the toString method.
+     * @param vehicle Array of Vehicle objects.
+     */
     private  static void print(Vehicle[] vehicle){
         for (int i = 0; i < vehicle.length; i++) {
             System.out.println(vehicle[i]);
         }
     }
+
+    /**
+     * testDrive method get the distance and index of the vehicle chosen for a test drive.
+     * @param vehicle Array of Vehicle objects.
+     * @param i Index of vehicle object to test drive.
+     */
     private static void testDrive(Vehicle[] vehicle, int i) {
         int distance;
         System.out.println("Enter the test drive distance.");
@@ -109,6 +135,13 @@ public class Main {
         vehicle[i].Move(distance);
     }
 
+    /**
+     * RemoveVehicle method takes an array of Vehicle objects and an index and returns a new array that excludes
+     * the Vehicle object at the specified index.
+     * @param vehicle Array of Vehicle objects
+     * @param i Index to remove.
+     * @return A new array that excludes the Vehicle object at the specified index.
+     */
     private static Vehicle[] removeVehicle(Vehicle[] vehicle, int i) {
         Vehicle[] newVehicle = new Vehicle[vehicle.length - 1];
         int k = 0;
@@ -121,7 +154,13 @@ public class Main {
         return newVehicle;
     }
 
-
+    /**
+     * AddVehicle method takes an array of Vehicle objects and a new Vehicle object and returns a new array that
+     * includes the new Vehicle object.
+     * @param vehicle Array of Vehicle objects
+     * @param tmpVehicle New Vehicle object
+     * @return New array that includes the new Vehicle object.
+     */
     public static Vehicle[] addVehicle(Vehicle[] vehicle, Vehicle tmpVehicle){
         Vehicle[] newVehicle = new Vehicle[vehicle.length + 1];
         for (int i = 0; i < vehicle.length; i++) {
@@ -130,6 +169,12 @@ public class Main {
         newVehicle[vehicle.length] = tmpVehicle;
         return newVehicle;
     }
+
+    /**
+     * CreateVehicle method prompts the user to choose the type of vehicle they want to create and then gathers input
+     * from the user to create a new instance of the chosen vehicle type.
+     * @return Vehicle object.
+     */
     public static Vehicle createVehicle() {
         String model, power;
         Vehicle vehicle = null;
