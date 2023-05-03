@@ -8,10 +8,11 @@ package vehicle;
  */
 import java.util.Objects;
 
-public class Frigate extends Marine implements Motorized{
+public class Frigate extends Vehicle implements Motorized, IMarine{
     private float fuel;
     private float life;
-
+    private boolean withWind;
+    private String flag;
     /**
      * Constructs a new Frigate object with the specified model, maximum number of passengers, maximum speed, and country.
      * The fuel and life are set to default values of 500 and 4, respectively.
@@ -22,7 +23,9 @@ public class Frigate extends Marine implements Motorized{
      * @param withWind a boolean indicating whether or not the frigate can sail with the wind
      */
     public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind) {
-        super(model, maxPassengers, maxSpeed, withWind, "Israel");
+        super(model, maxPassengers, maxSpeed);
+        this.withWind = withWind;
+        this.flag = "Israel";
         this.fuel = 500;
         this.life = 4;
     }
@@ -69,5 +72,25 @@ public class Frigate extends Marine implements Motorized{
         if (!super.equals(o)) return false;
         Frigate frigate = (Frigate) o;
         return Float.compare(frigate.fuel, fuel) == 0 && Float.compare(frigate.life, life) == 0;
+    }
+
+    @Override
+    public boolean isWithWind() {
+        return withWind;
+    }
+
+    @Override
+    public void setWithWind(boolean withWind) {
+        this.withWind = withWind;
+    }
+
+    @Override
+    public String getFlag() {
+        return flag;
+    }
+
+    @Override
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

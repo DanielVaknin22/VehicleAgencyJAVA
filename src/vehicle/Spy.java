@@ -4,16 +4,18 @@ package vehicle;
  */
 import java.util.Objects;
 
-public class Spy extends Air implements noMotorized{
+public class Spy extends Vehicle implements noMotorized, IAir{
     private String power;
     private energyScore energy;
+    private String use;
     /**
      * Constructs a Spy object with the given model, maximum number of passengers, maximum speed,
      * and energy score. all data members is by default.
      * @param power the source of power of the Spy.
      */
     public Spy(String power) {
-        super("private" ,1 , 50, "military");
+        super("private" ,1 , 50);
+        this.use = "military";
         this.energy = energyScore.C;
         this.power = power;
     }
@@ -57,5 +59,15 @@ public class Spy extends Air implements noMotorized{
         if (!super.equals(o)) return false;
         Spy spy = (Spy) o;
         return Objects.equals(power, spy.power) && energy == spy.energy;
+    }
+
+    @Override
+    public String getUse() {
+        return use;
+    }
+
+    @Override
+    public void setUse(String use) {
+        this.use = use;
     }
 }

@@ -6,10 +6,12 @@ package vehicle;
  */
 import java.util.Objects;
 
-public class Jeep extends Land implements Motorized, Commercial{
+public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
     private float fuel;
     private float life;
     private licenseType license;
+    private int wheels;
+    private String roadType;
 
     /**
      * Constructs a new Jeep object with the given model, maximum speed, average fuel consumption, and average lifespan.
@@ -19,7 +21,9 @@ public class Jeep extends Land implements Motorized, Commercial{
      * @param life The average lifespan of the Jeep in years.
      */
     public Jeep(String model, int maxSpeed, float fuel, float life) {
-        super(model, 5, maxSpeed, 4, "dirt");
+        super(model, 5, maxSpeed);
+        this.wheels = 4;
+        this.roadType = "dirt";
         this.fuel = fuel;
         this.life = life;
         this.license = licenseType.MINI;
@@ -92,5 +96,25 @@ public class Jeep extends Land implements Motorized, Commercial{
         if (!super.equals(o)) return false;
         Jeep jeep = (Jeep) o;
         return Float.compare(jeep.fuel, fuel) == 0 && Float.compare(jeep.life, life) == 0 && license == jeep.license;
+    }
+
+    @Override
+    public int getWheels() {
+        return wheels;
+    }
+
+    @Override
+    public void setWheels(int wheels) {
+        this.wheels = wheels;
+    }
+
+    @Override
+    public String getRoadType() {
+        return roadType;
+    }
+
+    @Override
+    public void setRoadType(String roadType) {
+        this.roadType = roadType;
     }
 }

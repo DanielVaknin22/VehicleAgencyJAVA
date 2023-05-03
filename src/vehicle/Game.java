@@ -4,14 +4,16 @@ import java.util.Objects;
 /**
  * The GameGlider class represents a toy air vehicle, non-motorized for civil use and have an energy score.
  */
-public class Game extends Air implements noMotorized{
+public class Game extends Vehicle implements noMotorized, IAir{
     private String power;
     private energyScore energy;
+    private String use;
     /**
      * Constructs a new Game object with default values for model, maximum of passengers, maximum speed, power source and energy score.
      */
     public Game() {
-        super("toy", 0, 10, "civil");
+        super("toy", 0, 10);
+        this.use = "civil";
         this.energy = energyScore.A;
         this.power = "manual";
     }
@@ -68,6 +70,16 @@ public class Game extends Air implements noMotorized{
         if (!super.equals(o)) return false;
         Game game = (Game) o;
         return Objects.equals(power, game.power) && energy == game.energy;
+    }
+
+    @Override
+    public String getUse() {
+        return use;
+    }
+
+    @Override
+    public void setUse(String use) {
+        this.use = use;
     }
 }
 
