@@ -100,8 +100,8 @@ public class Main {
                     System.out.println("Enter the name of the flag.");
                     String flag = sc.next();
                     for (int i = 0; i < vehicle.length; i++) {
-                        if (vehicle[i] instanceof Marine) {
-                            ((Marine) vehicle[i]).setFlag(flag);
+                        if (vehicle[i] instanceof IMarine) {
+                            ((IMarine) vehicle[i]).setFlag(flag);
                             count = 1;
                         }
                     }

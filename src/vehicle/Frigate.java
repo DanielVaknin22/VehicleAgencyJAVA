@@ -56,23 +56,33 @@ public class Frigate extends Vehicle implements Motorized, IMarine{
      */
     @Override
     public String toString() {
+        String wind = withWind? "with": "without";
         return this.getClass().getSimpleName() + ": " + super.toString() +
-                ". The average fuel is: " + fuel +
+                " Under " + flag + " flag, " + wind + " the wind." +
+                " The average fuel is: " + fuel +
                 " The average life is: " + life + ".";
     }
-    /**
-     * Determines whether a frigate object is equal to another frigate object by comparing all data members.
-     * @param o the object to compare to this object
-     * @return true if the objects are equal in all data members, false otherwise
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Frigate frigate = (Frigate) o;
-        return Float.compare(frigate.fuel, fuel) == 0 && Float.compare(frigate.life, life) == 0;
+        return Float.compare(frigate.fuel, fuel) == 0 && Float.compare(frigate.life, life) == 0 && withWind == frigate.withWind && flag.equals(frigate.flag);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fuel, life, withWind, flag);
+    }
+
+    /**
+     * Determines whether a frigate object is equal to another frigate object by comparing all data members.
+     * @param o the object to compare to this object
+     * @return true if the objects are equal in all data members, false otherwise
+     */
+
 
     @Override
     public boolean isWithWind() {

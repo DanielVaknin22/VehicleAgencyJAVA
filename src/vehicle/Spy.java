@@ -43,8 +43,18 @@ public class Spy extends Vehicle implements noMotorized, IAir{
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": " + super.toString() +
+                " It is used for: " + use +
                 ". The power source is: " + power +
                 " The energy score is: " + energy + ".";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Spy spy = (Spy) o;
+        return power.equals(spy.power) && energy == spy.energy && use.equals(spy.use);
     }
 
     /**
@@ -52,14 +62,7 @@ public class Spy extends Vehicle implements noMotorized, IAir{
      * @param o the object to compare to
      * @return true if the spy vehicle is equal to the object, false otherwise
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Spy spy = (Spy) o;
-        return Objects.equals(power, spy.power) && energy == spy.energy;
-    }
+
 
     @Override
     public String getUse() {

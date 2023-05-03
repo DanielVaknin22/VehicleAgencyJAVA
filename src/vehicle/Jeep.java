@@ -78,9 +78,25 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": "+ super.toString() +
+                " It has " + wheels +
+                " wheels. Can move on " + roadType +
                 ". The average fuel is: " + fuel +
                 " The average life is: " + life +
                 ". The license type is: " + license + ".";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Jeep jeep = (Jeep) o;
+        return Float.compare(jeep.fuel, fuel) == 0 && Float.compare(jeep.life, life) == 0 && wheels == jeep.wheels && license == jeep.license && roadType.equals(jeep.roadType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fuel, life, license, wheels, roadType);
     }
 
     /**
@@ -89,14 +105,6 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
      * @param o The object to compare to.
      * @return True if the objects are equal, false otherwise.
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Jeep jeep = (Jeep) o;
-        return Float.compare(jeep.fuel, fuel) == 0 && Float.compare(jeep.life, life) == 0 && license == jeep.license;
-    }
 
     @Override
     public int getWheels() {

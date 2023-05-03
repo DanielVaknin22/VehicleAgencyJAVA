@@ -54,8 +54,18 @@ public class Game extends Vehicle implements noMotorized, IAir{
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": " + super.toString() +
+                " It is used for: " + use +
                 ". The power source is: " + power +
                 " The energy score is: " + energy + ".";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Game game = (Game) o;
+        return power.equals(game.power) && energy == game.energy && use.equals(game.use);
     }
 
     /**
@@ -63,14 +73,7 @@ public class Game extends Vehicle implements noMotorized, IAir{
      * @param o The object to compare to.
      * @return true if the objects are equal, false otherwise.
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Game game = (Game) o;
-        return Objects.equals(power, game.power) && energy == game.energy;
-    }
+
 
     @Override
     public String getUse() {
