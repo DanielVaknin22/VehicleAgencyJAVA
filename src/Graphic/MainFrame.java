@@ -21,6 +21,7 @@ public class MainFrame extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//close the windows when click X
 
         InitButtons();
+        SetImageAndPlaceText();
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -55,6 +56,28 @@ public class MainFrame extends JFrame implements ActionListener{
             ArrJButton[i].setBounds(x, y, 105, 100);//resize the buttons
             x += 110;
         }
+    }
+
+    public static ImageIcon resizeImage(ImageIcon img)
+    {
+        Image im = img.getImage();
+        Image tmp =  im.getScaledInstance(320, 380, Image.SCALE_REPLICATE);
+        img = new ImageIcon(tmp);
+        return img;
+    }
+
+    public void SetImageAndPlaceText()
+    {
+        String[] sourceImg = {"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"
+        ,"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"};
+        for(int i=0 ; i<ArrJButton.length ;i++)
+        {
+            ArrJButton[i].setIcon(new ImageIcon(sourceImg[i]));
+            ArrJButton[i].setHorizontalTextPosition(JButton.CENTER);
+            ArrJButton[i].setVerticalTextPosition(JButton.TOP);
+            ArrJButton[i].setBackground(new Color(220,220,250));
+        }
+
     }
 
     @Override
