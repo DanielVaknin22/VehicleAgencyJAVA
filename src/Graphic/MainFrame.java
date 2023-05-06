@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import java.util.ArrayList;
 
-public class MainFrame extends JFrame implements ActionListener{
+public class MainFrame extends JFrame implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
     static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
 
@@ -28,7 +28,7 @@ public class MainFrame extends JFrame implements ActionListener{
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBounds(15, 0, 600, 500);
-        for(int i=0; i<ArrJButton.length; i++)
+        for (int i = 0; i < ArrJButton.length; i++)
             panel.add(ArrJButton[i]);
         JLabel Welcome = new JLabel("Welcome to the Vehicle Agency!");
         Welcome.setFont(new Font(Welcome.getName(), Font.BOLD, 25));
@@ -41,14 +41,25 @@ public class MainFrame extends JFrame implements ActionListener{
         this.add(panel);
     }
 
-        public void InitButtons()
+    public void initPanelsVehicle()
     {
-        String[] nameArray = {"Jeep","Frigate", "Spy","Game", "Amphibious","Bicycle","CruiseShip", "Menu"};
-        int x = 60, y = 100 ;
-        for(int i = 0 ; i < ArrJButton.length ; i++)
-        {
+        arrayVehiclePanels.add(new JeepPanel());
+        /*
+        arrayVehiclePanels.add(new FrigatePanel());
+        arrayVehiclePanels.add(new SpyPlanePanel());
+        arrayVehiclePanels.add(new GamePlanePanel());
+        arrayVehiclePanels.add(new AmphibiousPanel());
+        arrayVehiclePanels.add(new BicyclePanel());
+        arrayVehiclePanels.add(new CruiseShipPanel());
+         */
+    }
+
+    public void InitButtons() {
+        String[] nameArray = {"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
+        int x = 60, y = 100;
+        for (int i = 0; i < ArrJButton.length; i++) {
             ArrJButton[i] = new JButton(nameArray[i]);//create new button
-            if(i == ArrJButton.length/2)//to get new line
+            if (i == ArrJButton.length / 2)//to get new line
             {
                 y = 210;
                 x = 60;
@@ -58,30 +69,38 @@ public class MainFrame extends JFrame implements ActionListener{
         }
     }
 
-    public static ImageIcon resizeImage(ImageIcon img)
-    {
+    public static ImageIcon resizeImage(ImageIcon img) {
         Image im = img.getImage();
         Image tmp = im.getScaledInstance(610, 612, Image.SCALE_REPLICATE);
         img = new ImageIcon(tmp);
         return img;
     }
 
-    public void SetImageAndPlaceText()
-    {
-        String[] sourceImg = {"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"
-        ,"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"};
-        for(int i=0 ; i<ArrJButton.length ;i++)
-        {
+    public void SetImageAndPlaceText() {
+        String[] sourceImg = {"Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"
+                , "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"};
+        for (int i = 0; i < ArrJButton.length; i++) {
             ArrJButton[i].setIcon(new ImageIcon(sourceImg[i]));
             ArrJButton[i].setHorizontalTextPosition(JButton.CENTER);
             ArrJButton[i].setVerticalTextPosition(JButton.TOP);
-            ArrJButton[i].setBackground(new Color(220,220,250));
+            ArrJButton[i].setBackground(new Color(220, 220, 250));
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        for (int i = 0; i < ArrJButton.length; i++) {
+            if (e.getSource() == ArrJButton[i]) {
+                VehiclePanel department = arrayVehiclePanels.get(i);
+                JFrame departmentFrame = new JFrame(department.getEqualName());
+                departmentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                departmentFrame.setBounds(0, 0, 600, 700);
+                departmentFrame.setLocationRelativeTo(null);
+                departmentFrame.getContentPane().add(department.PanelComponent());
+                departmentFrame.setVisible(true);
+                // You can perform any additional actions or logic here
+            }
+        }
     }
 }
 
