@@ -6,11 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener{
     private static JButton[] ArrJButton = new JButton[8];
+    static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
 
-    //add menu button
 
     public MainFrame() {
         JFrame frame = new JFrame("Car Agency");
@@ -38,11 +39,9 @@ public class MainFrame extends JFrame implements ActionListener{
         Choose.setBounds(175, -20, 400, 150);
         panel.add(Choose);
         this.add(panel);
-
-
     }
 
-    public void InitButtons()
+        public void InitButtons()
     {
         String[] nameArray = {"Jeep","Frigate", "Spy","Game", "Amphibious","Bicycle","CruiseShip", "Menu"};
         int x = 60, y = 100 ;
