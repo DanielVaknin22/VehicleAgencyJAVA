@@ -41,22 +41,20 @@ public class MainFrame extends JFrame implements ActionListener{
         this.add(panel);
     }
 
-        public void InitButtons()
-    {
-        String[] nameArray = {"Jeep","Frigate", "Spy","Game", "Amphibious","Bicycle","CruiseShip", "Menu"};
-        int x = 60, y = 100 ;
-        for(int i = 0 ; i < ArrJButton.length ; i++)
-        {
-            ArrJButton[i] = new JButton(nameArray[i]);//create new button
-            if(i == ArrJButton.length/2)//to get new line
-            {
-                y = 210;
-                x = 60;
+        public void InitButtons() {
+            String[] nameArray = {"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
+            int x = 60, y = 100;
+            for (int i = 0; i < ArrJButton.length; i++) {
+                ArrJButton[i] = new JButton(nameArray[i]);//create new button
+                if (i == ArrJButton.length / 2)//to get new line
+                {
+                    y = 210;
+                    x = 60;
+                }
+                ArrJButton[i].setBounds(x, y, 105, 100);//resize the buttons
+                x += 110;
             }
-            ArrJButton[i].setBounds(x, y, 105, 100);//resize the buttons
-            x += 110;
         }
-    }
 
     public static ImageIcon resizeImage(ImageIcon img)
     {
