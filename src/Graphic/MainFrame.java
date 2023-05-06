@@ -1,6 +1,5 @@
 package Graphic;
 
-import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,8 +27,10 @@ public class MainFrame extends JFrame implements ActionListener {
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBounds(15, 0, 600, 500);
-        for (int i = 0; i < ArrJButton.length; i++)
+        for (int i = 0; i < ArrJButton.length; i++) {
             panel.add(ArrJButton[i]);
+            ArrJButton[i].addActionListener(new JeepPanel());
+        }
         JLabel Welcome = new JLabel("Welcome to the Vehicle Agency!");
         Welcome.setFont(new Font(Welcome.getName(), Font.BOLD, 25));
         Welcome.setBounds(100, -58, 400, 150);
@@ -41,7 +42,9 @@ public class MainFrame extends JFrame implements ActionListener {
         this.add(panel);
     }
 
-    public void initPanelsVehicle()
+
+
+        public void initPanelsVehicle()
     {
         arrayVehiclePanels.add(new JeepPanel());
         /*
@@ -69,26 +72,34 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
-    public static ImageIcon resizeImage(ImageIcon img) {
+    /**public static ImageIcon resizeImage(ImageIcon img) {
         Image im = img.getImage();
-        Image tmp = im.getScaledInstance(610, 612, Image.SCALE_REPLICATE);
-        img = new ImageIcon(tmp);
-        return img;
-    }
+        Image tmp = im.getScaledInstance(5, 1, Image.SCALE_SMOOTH);
+        return new ImageIcon(tmp);
+        Image im = img.getImage();
+        Image scaledIm = im.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledIm);
+    }**/
+
 
     public void SetImageAndPlaceText() {
-        String[] sourceImg = {"Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"
+        String[] sourceImg = {"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\JeepIcon.png"
                 , "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"};
         for (int i = 0; i < ArrJButton.length; i++) {
-            ArrJButton[i].setIcon(new ImageIcon(sourceImg[i]));
+            ImageIcon icon = new ImageIcon(sourceImg[i]);
+            Image im = icon.getImage();
+            Image scaledIm = im.getScaledInstance(100, 85, Image.SCALE_SMOOTH);
+            ImageIcon img = new ImageIcon(scaledIm);
+            ArrJButton[i].setIcon(img);
             ArrJButton[i].setHorizontalTextPosition(JButton.CENTER);
             ArrJButton[i].setVerticalTextPosition(JButton.TOP);
-            ArrJButton[i].setBackground(new Color(220, 220, 250));
+            ArrJButton[i].setBackground(new Color(212, 230, 253));
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         for (int i = 0; i < ArrJButton.length; i++) {
             if (e.getSource() == ArrJButton[i]) {
                 VehiclePanel department = arrayVehiclePanels.get(i);
