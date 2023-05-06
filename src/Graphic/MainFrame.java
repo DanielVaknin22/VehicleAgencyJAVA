@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
 public class MainFrame extends JFrame implements ActionListener{
     private static JButton[] ArrJButton = new JButton[8];
@@ -61,15 +62,15 @@ public class MainFrame extends JFrame implements ActionListener{
     public static ImageIcon resizeImage(ImageIcon img)
     {
         Image im = img.getImage();
-        Image tmp =  im.getScaledInstance(320, 380, Image.SCALE_REPLICATE);
+        Image tmp = im.getScaledInstance(612, 612, Image.SCALE_REPLICATE);
         img = new ImageIcon(tmp);
         return img;
     }
 
     public void SetImageAndPlaceText()
     {
-        String[] sourceImg = {"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"
-        ,"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"};
+        String[] sourceImg = {"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"
+        ,"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"};
         for(int i=0 ; i<ArrJButton.length ;i++)
         {
             ArrJButton[i].setIcon(new ImageIcon(sourceImg[i]));
@@ -77,7 +78,6 @@ public class MainFrame extends JFrame implements ActionListener{
             ArrJButton[i].setVerticalTextPosition(JButton.TOP);
             ArrJButton[i].setBackground(new Color(220,220,250));
         }
-
     }
 
     @Override
