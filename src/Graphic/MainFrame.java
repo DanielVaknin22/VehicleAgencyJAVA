@@ -62,7 +62,7 @@ public class MainFrame extends JFrame implements ActionListener{
     public static ImageIcon resizeImage(ImageIcon img)
     {
         Image im = img.getImage();
-        Image tmp = im.getScaledInstance(612, 612, Image.SCALE_REPLICATE);
+        Image tmp = im.getScaledInstance(610, 612, Image.SCALE_REPLICATE);
         img = new ImageIcon(tmp);
         return img;
     }
