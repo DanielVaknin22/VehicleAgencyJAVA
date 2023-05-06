@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.io.File;
 
 public class MainFrame extends JFrame implements ActionListener{
     private static JButton[] ArrJButton = new JButton[8];
@@ -68,8 +71,8 @@ public class MainFrame extends JFrame implements ActionListener{
 
     public void SetImageAndPlaceText()
     {
-        String[] sourceImg = {"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"
-        ,"Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg","Pictures\\JeepIcon.jpg"};
+        String[] sourceImg = {"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"
+        ,"Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png","Pictures\\JeepIcon.png"};
         for(int i=0 ; i<ArrJButton.length ;i++)
         {
             ArrJButton[i].setIcon(new ImageIcon(sourceImg[i]));
