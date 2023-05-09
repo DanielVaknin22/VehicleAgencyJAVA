@@ -109,4 +109,3 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
 
     }
 }
-
