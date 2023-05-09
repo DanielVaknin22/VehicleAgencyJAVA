@@ -20,6 +20,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
         this.setLocationRelativeTo((Component)null);
         this.InitButtons();
         this.SetImageAndPlaceText();
+        this.setVisible(true);
         JPanel panel = new JPanel();
         panel.setLayout((LayoutManager)null);
         panel.setBounds(15, 0, 600, 500);
@@ -86,6 +87,14 @@ public class CreateVehicle extends JDialog implements ActionListener {
             imgButton[i].setBackground(new Color(212, 230, 253));
         }
 
+    }
+
+    public Vehicle[] updateVehicle(){
+        Vehicle[] vehicle = new Vehicle[this.vehicles.length];
+        for (int i = 0; i < this.vehicles.length; i++) {
+            vehicle[i] = this.vehicles[i];
+        }
+        return vehicle;
     }
 
     private Jeep createJeep() {
@@ -258,9 +267,9 @@ public class CreateVehicle extends JDialog implements ActionListener {
 
             newVehicle[vehicle.length] = tmpVehicle;
         } else {
-            newVehicle = new Vehicle[]{tmpVehicle};
+            newVehicle = new Vehicle[1];
+            newVehicle[0] = tmpVehicle;
         }
-
         return newVehicle;
     }
 
@@ -317,10 +326,13 @@ public class CreateVehicle extends JDialog implements ActionListener {
         } else if (e.getSource() == ArrJButton[7]) {
             if (this.vehicles != null) {
                 this.setVisible(false);
+
             } else {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
             }
         }
-
+        for (int i = 0; i < vehicles.length; i++) {
+            System.out.println("c:" + vehicles[i]);
+        }
     }
 }

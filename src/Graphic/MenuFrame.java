@@ -1,5 +1,7 @@
 package Graphic;
 
+import vehicle.Vehicle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,24 +12,28 @@ import java.awt.Component;
 public class MenuFrame extends JFrame implements ActionListener {
 
     private static JButton[] ArrJButton = new JButton[6];
+    private Vehicle[] vehicles;
 
 
     public MenuFrame(){
+        new CreateVehicle();
         JFrame frame = new JFrame("Menu");
         setTitle("Menu");
-        setLayout(null);
+        this.setLayout((LayoutManager)null);
         setBounds(0, 30, 600, 730);
         setLocationRelativeTo(null);
         setLocationRelativeTo(null);//put the windows in the center
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//close the windows when click X
-
+        this.InitButtons();
+        this.setVisible(true);
         JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(null);
+        menuPanel.setLayout((LayoutManager)null);
         menuPanel.setBounds(15, 0, 600, 500);
         for (int i = 0; i < ArrJButton.length; i++) {
             menuPanel.add(ArrJButton[i]);
             ArrJButton[i].addActionListener(this);
         }
+        this.add(menuPanel);
 
     }
 
@@ -46,15 +52,18 @@ public class MenuFrame extends JFrame implements ActionListener {
         }
     }
 
-
-
-
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ArrJButton[0]) {
+            CreateVehicle createVehicle = new CreateVehicle();
+            this.vehicles = createVehicle.updateVehicle();
+            for (int i = 0; i < vehicles.length; i++) {
+                System.out.println("m:" + vehicles[i]);
+            }
+        }
+        if(e.getSource() == ArrJButton[1]){
 
         }
+
     }
 }
