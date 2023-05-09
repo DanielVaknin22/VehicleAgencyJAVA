@@ -102,6 +102,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
     }
 
+
     private Jeep createJeep() {
         String[] imageFilePath = {"Pictures/jeep1.png", "Pictures/jeep2.png", "Pictures/jeep3.png", "Pictures/jeep4.png"};
         JLabel model = new JLabel("Model: ");
