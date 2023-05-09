@@ -51,7 +51,6 @@ public class MainFrame extends JFrame implements ActionListener {
         this.add(panel);
     }
 
-
     public void InitButtons() {
         String[] nameArray = {"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
         int x = 60, y = 100;
