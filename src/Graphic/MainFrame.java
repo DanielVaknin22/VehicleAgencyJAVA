@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import java.util.ArrayList;
+import vehicle.*;
 
 public class MainFrame extends JFrame implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
@@ -26,11 +27,13 @@ public class MainFrame extends JFrame implements ActionListener {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setBounds(15, 0, 600, 500);
         for (int i = 0; i < ArrJButton.length; i++) {
             panel.add(ArrJButton[i]);
-            ArrJButton[i].addActionListener(new JeepPanel());
+            if(i == 0) {
+                ArrJButton[i].addActionListener(new JeepPanel());
+            }
         }
+        panel.setBounds(15, 0, 600, 500);
         JLabel Welcome = new JLabel("Welcome to the Vehicle Agency!");
         Welcome.setFont(new Font(Welcome.getName(), Font.BOLD, 25));
         Welcome.setBounds(100, -58, 400, 150);
@@ -97,10 +100,11 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
-    @Override
+
+   @Override
     public void actionPerformed(ActionEvent e) {
 
-        for (int i = 0; i < ArrJButton.length; i++) {
+        /**for (int i = 0; i < ArrJButton.length; i++) {
             if (e.getSource() == ArrJButton[i]) {
                 VehiclePanel department = arrayVehiclePanels.get(i);
                 JFrame departmentFrame = new JFrame(department.getEqualName());
@@ -111,7 +115,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 departmentFrame.setVisible(true);
                 // You can perform any additional actions or logic here
             }
-        }
+        }**/
     }
 }
 
