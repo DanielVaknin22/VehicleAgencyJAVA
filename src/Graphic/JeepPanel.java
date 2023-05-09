@@ -1,4 +1,4 @@
-package Graphic;
+/**package Graphic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Component;
 
-public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
+public class JeepPanel extends JPanel implements ActionListener {
     private static JButton[] imgButton = new JButton[4];
     private ArrayList<JLabel> field = new ArrayList<JLabel>();
     private ArrayList<JTextField> text = new ArrayList<JTextField>();
@@ -109,3 +109,4 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
 
     }
 }
+**/

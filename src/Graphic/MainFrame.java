@@ -1,23 +1,16 @@
 package Graphic;
 
-import vehicle.Jeep;
-import vehicle.Vehicle;
+import vehicle.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.border.TitledBorder;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
     private static JButton[] imgButton = new JButton[4];
-    static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
-
+    //static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
 
     public MainFrame() {
         JFrame frame = new JFrame("Car Agency");
@@ -95,51 +88,63 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
-//    private Vehicle createVehicle() {
-//        JButton jButton = new JButton("Add");
-//        jButton.setBounds(15, 40, 30, 30);
-//        this.getContentPane().add(jButton);
-//
-//    }
-
-
+    /**
+     * private Vehicle createVehicle() {
+     * //        JButton jButton = new JButton("Add");
+     * //        jButton.setBounds(15, 40, 30, 30);
+     * //        this.getContentPane().add(jButton);
+     * return switch (type) {
+     * case "Jeep" -> createJeep();
+     * case "Frigate" -> createFrigate();
+     * case "Spy Glider" -> createSpyGlider();
+     * case "Game Glider" -> createGameGlider();
+     * case "Amphibious" -> createAmphibious();
+     * case "Bicycle" -> createBicycle();
+     * case "Cruise Ship" -> createCruiseShip();
+     * default -> null;
+     * };
+     * //
+     * //    }
+     **/
 
 
     private Jeep createJeep() {
         String[] imageFilePath = {"Pictures/jeep1.png", "Pictures/jeep2.png", "Pictures/jeep3.png", "Pictures/jeep4.png"};
         JLabel model = new JLabel("Model: ");
         JTextField textModel = new JTextField(500);
+        this.getContentPane().add(model);
         this.getContentPane().add(textModel);
         JLabel maxSpeed = new JLabel("Max Speed: ");
         JTextField textSpeed = new JTextField(500);
+        this.getContentPane().add(maxSpeed);
         this.getContentPane().add(textSpeed);
         JLabel averageFuel = new JLabel("Average Fuel: ");
         JTextField textFuel = new JTextField(500);
+        this.getContentPane().add(averageFuel);
         this.getContentPane().add(textFuel);
-        JLabel averagLife = new JLabel("Average Life: ");
+        JLabel averageLife = new JLabel("Average Life: ");
         JTextField textLife = new JTextField(500);
+        this.getContentPane().add(averageLife);
         this.getContentPane().add(textLife);
-        return new Jeep(String.valueOf(model),Integer.parseInt(String.valueOf(maxSpeed)),Float.parseFloat(String.valueOf(averageFuel)),Float.parseFloat(String.valueOf(averagLife)));
-//        textModel.addKeyListener(new KeyAdapter() {
-//            public void keyTyped(KeyEvent e) {
-//                char c = e.getKeyChar();
-//                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-//                    e.consume();
-//                }
-//            }
-//        });
-
+        SetImageVehicle(imageFilePath);
+        JButton jButton = new JButton("Add");
+        return new Jeep(textModel.getText(), Integer.parseInt(textSpeed.getText()), Float.parseFloat(textFuel.getText()), Float.parseFloat(textLife.getText()));
     }
-
-
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == ArrJButton[0]) {
+            // Jeep button is clicked
+            Jeep jeep = createJeep();
+        } else if (e.getSource() == ArrJButton[1]) {
+
+        } else if (e.getSource() == ArrJButton[2]) {
+
+        }
 
     }
 }
-
 
 
 
