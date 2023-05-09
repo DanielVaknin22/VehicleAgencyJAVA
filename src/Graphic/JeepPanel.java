@@ -14,7 +14,7 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
 
     public JeepPanel() {
         this.setLayout(null);
-        this.setBounds(15, 280 , 600 , 700);
+        this.setBounds(15, 280, 600, 700);
         field.add(new JLabel("Model: "));
         text.add(new JTextField());
         field.add(new JLabel("Max Speed:"));
@@ -26,7 +26,6 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
         arrangeText();
         InitButtons();
         SetImageAndPlaceText();
-
     }
 
     public void InitButtons() {
@@ -43,6 +42,7 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
             this.add(imgButton[i]); // Add the button to the panel
         }
     }
+
     // Set the button icon and text position
     public void SetImageAndPlaceText() {
         String[] imageFilePath = {"Pictures/jeep1.png", "Pictures/jeep2.png", "Pictures/jeep3.png", "Pictures/jeep4.png"};
@@ -105,7 +105,8 @@ public class JeepPanel extends JPanel implements VehiclePanel, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, this);
+        JOptionPane.showMessageDialog(null, imgButton);
+
     }
 }
 
