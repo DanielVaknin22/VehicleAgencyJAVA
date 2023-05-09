@@ -1,5 +1,6 @@
 package vehicle;
 
+import javax.swing.*;
 import java.util.Objects;
 
 public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercial{
@@ -16,8 +17,8 @@ public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercia
      * @param maxPassengers the maximum number of passengers the vehicle can carry
      * @param maxSpeed      the maximum speed of the vehicle
      */
-    public CruiseShip(String model, int maxPassengers, int maxSpeed, String flag, float fuel, float life) {
-        super(model, maxPassengers, maxSpeed);
+    public CruiseShip(String model, int maxPassengers, int maxSpeed, String flag, float fuel, float life, ImageIcon img) {
+        super(model, maxPassengers, maxSpeed, img);
         this.withWind = true;
         this.flag = flag;
         this.fuel = fuel;

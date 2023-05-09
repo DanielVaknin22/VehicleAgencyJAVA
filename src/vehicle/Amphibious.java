@@ -1,5 +1,6 @@
 package vehicle;
 
+import javax.swing.*;
 import java.util.Objects;
 
 public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
@@ -17,8 +18,8 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
      * @param maxPassengers the maximum number of passengers the vehicle can carry
      * @param maxSpeed      the maximum speed of the vehicle
      */
-    public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life) {
-        super(model, maxPassengers, maxSpeed);
+    public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life, ImageIcon img) {
+        super(model, maxPassengers, maxSpeed,img);
         this.roadType = "paved";
         this.flag = flag;
         this.withWind = withWind;

@@ -6,6 +6,7 @@ package vehicle;
  It includes methods for setting and getting the average fuel consumption and life expectancy of the frigate.
  It extends the SeaTransportation class and implements the Motorized interface.
  */
+import javax.swing.*;
 import java.util.Objects;
 
 public class Frigate extends Vehicle implements Motorized, IMarine{
@@ -22,8 +23,8 @@ public class Frigate extends Vehicle implements Motorized, IMarine{
      * @param maxSpeed the maximum speed of the frigate
      * @param withWind a boolean indicating whether or not the frigate can sail with the wind
      */
-    public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind) {
-        super(model, maxPassengers, maxSpeed);
+    public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind, ImageIcon img) {
+        super(model, maxPassengers, maxSpeed, img);
         this.withWind = withWind;
         this.flag = "Israel";
         this.fuel = 500;

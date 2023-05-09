@@ -2,6 +2,7 @@ package vehicle;
 /**
  * The Vehicle class represents a generic vehicle with a model name, distance traveled, maximum number of passengers, and maximum speed.
  */
+import javax.swing.*;
 import java.util.Objects;
 
 public abstract class Vehicle {
@@ -9,17 +10,19 @@ public abstract class Vehicle {
     protected int km;
     protected int maxPassengers;
     protected int maxSpeed;
+    protected ImageIcon img;
     /**
      * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
      * @param model the model of the vehicle
      * @param maxPassengers the maximum number of passengers the vehicle can carry
      * @param maxSpeed the maximum speed of the vehicle
      */
-    public Vehicle(String model, int maxPassengers, int maxSpeed) {
+    public Vehicle(String model, int maxPassengers, int maxSpeed, ImageIcon img) {
         this.model = model;
         this.km = 0;
         this.maxPassengers = maxPassengers;
         this.maxSpeed = maxSpeed;
+        this.img = img;
     }
 
     /**

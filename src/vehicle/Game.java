@@ -1,5 +1,6 @@
 package vehicle;
 
+import javax.swing.*;
 import java.util.Objects;
 /**
  * The GameGlider class represents a toy air vehicle, non-motorized for civil use and have an energy score.
@@ -11,8 +12,8 @@ public class Game extends Vehicle implements noMotorized, IAir{
     /**
      * Constructs a new Game object with default values for model, maximum of passengers, maximum speed, power source and energy score.
      */
-    public Game() {
-        super("toy", 0, 10);
+    public Game(ImageIcon img) {
+        super("toy", 0, 10,img);
         this.use = "civil";
         this.energy = energyScore.A;
         this.power = "manual";

@@ -4,6 +4,7 @@ package vehicle;
  * The Jeep class represents a type of motorized, commercial land vehicle.
  * It extends the Land class and implements the Motorized and Commercial interfaces.
  */
+import javax.swing.*;
 import java.util.Objects;
 
 public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
@@ -20,8 +21,8 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
      * @param fuel The average fuel consumption of the Jeep in liters per 100 kilometers..
      * @param life The average lifespan of the Jeep in years.
      */
-    public Jeep(String model, int maxSpeed, float fuel, float life) {
-        super(model, 5, maxSpeed);
+    public Jeep(String model, int maxSpeed, float fuel, float life, ImageIcon img) {
+        super(model, 5, maxSpeed, img);
         this.wheels = 4;
         this.roadType = "dirt";
         this.fuel = fuel;

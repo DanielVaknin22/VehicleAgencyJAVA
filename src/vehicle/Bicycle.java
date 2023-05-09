@@ -1,5 +1,6 @@
 package vehicle;
 
+import javax.swing.*;
 import java.util.Objects;
 
 public class Bicycle extends Vehicle implements noMotorized, ILand{
@@ -16,8 +17,9 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
      * @param maxPassengers the maximum number of passengers the vehicle can carry
      * @param maxSpeed      the maximum speed of the vehicle
      */
-    public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType) {
-        super(model, maxPassengers, maxSpeed);
+    public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType, ImageIcon img) {
+        super(model, maxPassengers, maxSpeed,img);
+        this.roadType = roadType;
         this.energy = energyScore.A;
         this.power = "manual";
         this.wheels = 2;
