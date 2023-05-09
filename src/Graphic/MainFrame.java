@@ -19,7 +19,6 @@ public class MainFrame extends JFrame implements ActionListener {
     static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
 
 
-
     public MainFrame() {
         JFrame frame = new JFrame("Car Agency");
         setTitle("Car Agency");
