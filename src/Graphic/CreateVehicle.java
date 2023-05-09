@@ -7,12 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainFrame extends JFrame implements ActionListener {
+public class CreateVehicle extends JDialog implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
     private static JButton[] imgButton = new JButton[4];
-    //static ArrayList<VehiclePanel> arrayVehiclePanels = new ArrayList<VehiclePanel>();
 
-    public MainFrame() {
+    public CreateVehicle() {
         JFrame frame = new JFrame("Car Agency");
         setTitle("Car Agency");
         setLayout(null);
@@ -29,7 +28,6 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.setBounds(15, 0, 600, 500);
         for (int i = 0; i < ArrJButton.length; i++) {
             panel.add(ArrJButton[i]);
-            //ArrJButton[i].addActionListener(new JeepPanel());
             ArrJButton[i].addActionListener(this);
         }
 
@@ -109,27 +107,36 @@ public class MainFrame extends JFrame implements ActionListener {
 
 
     private Jeep createJeep() {
-        String[] imageFilePath = {"Pictures/jeep1.png", "Pictures/jeep2.png", "Pictures/jeep3.png", "Pictures/jeep4.png"};
-        JLabel model = new JLabel("Model: ");
-        JTextField textModel = new JTextField(500);
-        this.getContentPane().add(model);
-        this.getContentPane().add(textModel);
-        JLabel maxSpeed = new JLabel("Max Speed: ");
-        JTextField textSpeed = new JTextField(500);
-        this.getContentPane().add(maxSpeed);
-        this.getContentPane().add(textSpeed);
-        JLabel averageFuel = new JLabel("Average Fuel: ");
-        JTextField textFuel = new JTextField(500);
-        this.getContentPane().add(averageFuel);
-        this.getContentPane().add(textFuel);
-        JLabel averageLife = new JLabel("Average Life: ");
-        JTextField textLife = new JTextField(500);
-        this.getContentPane().add(averageLife);
-        this.getContentPane().add(textLife);
-        SetImageVehicle(imageFilePath);
-        JButton jButton = new JButton("Add");
-        return new Jeep(textModel.getText(), Integer.parseInt(textSpeed.getText()), Float.parseFloat(textFuel.getText()), Float.parseFloat(textLife.getText()));
+        String model = JOptionPane.showInputDialog(this, "Enter Model: ");
+        int maxSpeed = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Speed: "));
+        float avFuel = Float.parseFloat(JOptionPane.showInputDialog(this, "Enter Average Fuel: "));
+        float avLife = Float.parseFloat(JOptionPane.showInputDialog(this, "Enter Average Life: "));
+        return new Jeep(model, maxSpeed, avFuel, avLife);
     }
+    private Frigate createFrigate() {
+        String model = JOptionPane.showInputDialog(this, "Enter Model: ");
+        int maxPassengers = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Passengers: "));
+        int maxSpeed = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Speed: "));
+        boolean witheWind = Boolean.parseBoolean(JOptionPane.showInputDialog(this, "Enter "));
+        return new Frigate(model,maxPassengers, maxSpeed, witheWind);
+    }
+
+    private boolean isWindDirectionRadio() {
+        JPanel windPanel = new JPanel();
+        windPanel.setLayout(new BoxLayout(windPanel, BoxLayout.PAGE_AXIS));
+        JRadioButton withWindButton = new JRadioButton("With the wind direction");
+        JRadioButton againstWindButton = new JRadioButton("Against the wind direction");
+        ButtonGroup windGroup = new ButtonGroup();
+        windGroup.add(withWindButton);
+        windGroup.add(againstWindButton);
+        windPanel.add(withWindButton);
+        windPanel.add(againstWindButton);
+        // Show the wind direction panel and wait for user selection
+        JOptionPane.showConfirmDialog(this, windPanel, "Please enter the wind direction:", JOptionPane.OK_CANCEL_OPTION);
+        // Get the selected wind direction and create the Frigate object
+        return withWindButton.isSelected();
+    }
+
 
 
     @Override

@@ -5,7 +5,7 @@ public class mainGui {
 
 
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
+        CreateVehicle createVehicle = new CreateVehicle();
+        createVehicle.setVisible(true);
     }
 }
