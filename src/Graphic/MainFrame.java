@@ -95,12 +95,14 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
-    private Vehicle createVehicle(){
-        JButton jButton = new JButton("Add");
-        jButton.setBounds(15, 40, 30, 30);
-        this.getContentPane().add(jButton);
+//    private Vehicle createVehicle() {
+//        JButton jButton = new JButton("Add");
+//        jButton.setBounds(15, 40, 30, 30);
+//        this.getContentPane().add(jButton);
+//
+//    }
 
-    }
+
 
 
     private Jeep createJeep() {
