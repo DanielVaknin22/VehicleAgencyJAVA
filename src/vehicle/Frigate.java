@@ -50,7 +50,6 @@ public class Frigate extends Vehicle implements Motorized, IMarine{
     public float getAverageLife() {
         return life;
     }
-
     /**
      * toString method for Frigate objects.
      * @return a string representation of the Frigate object

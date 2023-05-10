@@ -1,7 +1,6 @@
 package vehicle;
 
 import javax.swing.*;
-import java.util.Objects;
 
 public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercial{
     private boolean withWind;
@@ -37,7 +36,6 @@ public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercia
 
     @Override
     public void setWithWind(boolean withWind) {this.withWind = withWind; }
-
     @Override
     public String getFlag() {return flag; }
 

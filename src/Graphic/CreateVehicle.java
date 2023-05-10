@@ -1,45 +1,58 @@
 package Graphic;
 
 import vehicle.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CreateVehicle extends JDialog implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
-    private static JButton[] imgButton = new JButton[4];
-    private Vehicle[] vehicles;
+    //private static JButton[] imgButton = new JButton[4];
+    private static Vehicle[] vehicles;
 
     public CreateVehicle() {
         new JFrame("Car Agency");
         this.setTitle("Car Agency");
         this.setLayout((LayoutManager)null);
         this.setBounds(0, 30, 600, 730);
-        this.setLocationRelativeTo((Component)null);
-        this.setLocationRelativeTo((Component)null);
+        this.setLocationRelativeTo(null);
         this.InitButtons();
         this.SetImageAndPlaceText();
         this.setVisible(true);
-        JPanel panel = new JPanel();
-        panel.setLayout((LayoutManager)null);
-        panel.setBounds(15, 0, 600, 500);
-
+        JPanel createPanel = new JPanel();
+        createPanel.setLayout((LayoutManager)null);
+        createPanel.setBounds(15, 0, 600, 500);
         for(int i = 0; i < ArrJButton.length; ++i) {
-            panel.add(ArrJButton[i]);
+            createPanel.add(ArrJButton[i]);
             ArrJButton[i].addActionListener(this);
         }
-
         JLabel Welcome = new JLabel("Welcome to the Vehicle Agency!");
         Welcome.setFont(new Font(Welcome.getName(), 1, 25));
         Welcome.setBounds(100, -58, 400, 150);
-        panel.add(Welcome);
+        createPanel.add(Welcome);
         JLabel Choose = new JLabel("Choose type of car");
         Choose.setFont(new Font(Welcome.getName(), 1, 20));
         Choose.setBounds(175, -20, 400, 150);
-        panel.add(Choose);
-        this.add(panel);
+        createPanel.add(Choose);
+        this.add(createPanel);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Create and display the second window
+                MenuFrame menu = new MenuFrame();
+                menu.setVisible(true);
+            }
+        });
+
     }
+    public int getLengthVehicles(){
+        return vehicles.length;
+    }
+
 
     public void InitButtons() {
         String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
@@ -59,9 +72,9 @@ public class CreateVehicle extends JDialog implements ActionListener {
 
     }
 
+
     public void SetImageAndPlaceText() {
         String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"};
-
         for(int i = 0; i < ArrJButton.length; ++i) {
             ImageIcon icon = new ImageIcon(sourceImg[i]);
             Image im = icon.getImage();
@@ -75,27 +88,35 @@ public class CreateVehicle extends JDialog implements ActionListener {
 
     }
 
-    public void SetImageVehicle(String[] imageFilePath) {
+    /**public void SetImageVehicle(String[] imageFilePath) {
+        String[] img = new String[]{"Pictures\\jeep1.png", "Pictures\\jeep2.png", "Pictures\\jeep3.png", "Pictures\\jeep4.png"};
         for(int i = 0; i < imgButton.length; ++i) {
-            ImageIcon icon = new ImageIcon(imageFilePath[i]);
+            ImageIcon icon = new ImageIcon(img[i]);
             Image im = icon.getImage();
             Image scaledIm = im.getScaledInstance(100, 85, 4);
-            ImageIcon img = new ImageIcon(scaledIm);
-            imgButton[i].setIcon(img);
+            ImageIcon img1 = new ImageIcon(scaledIm);
+            imgButton[i].setIcon(img1);
             imgButton[i].setHorizontalTextPosition(0);
             imgButton[i].setVerticalTextPosition(1);
             imgButton[i].setBackground(new Color(212, 230, 253));
         }
 
+    }**/
+
+    public Vehicle[] updateVehicle() {
+        Vehicle[] newVehicle;
+        if (this.vehicles != null) {
+            newVehicle = new Vehicle[this.vehicles.length + 1];
+
+            for(int i = 0; i < this.vehicles.length; ++i) {
+                newVehicle[i] = this.vehicles[i];
+            }
+        } else {
+            newVehicle = new Vehicle[1];
+        }
+        return newVehicle;
     }
 
-    public Vehicle[] updateVehicle(){
-        Vehicle[] vehicle = new Vehicle[this.vehicles.length];
-        for (int i = 0; i < this.vehicles.length; i++) {
-            vehicle[i] = this.vehicles[i];
-        }
-        return vehicle;
-    }
 
     private Jeep createJeep() {
         String[] color = new String[]{"Grey", "Red", "White", "Blue"};
@@ -180,7 +201,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     //צריך להוסיף תמונות של זה ולשנות את הקוד בהתאם
-    private Amphibious createAmphibius() {
+    private Amphibious createAmphibious() {
         String[] color = new String[]{"Grey", "Red", "White", "Blue"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
         String model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -292,7 +313,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[4]) {
-            Amphibious amphibious = this.createAmphibius();
+            Amphibious amphibious = this.createAmphibious();
             if (amphibious != null) {
                 this.vehicles = addVehicle(this.vehicles, amphibious);
             } else {
@@ -315,6 +336,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
         } else if (e.getSource() == ArrJButton[7]) {
             if (this.vehicles != null) {
                 this.setVisible(false);
+                new MenuFrame();
 
             } else {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
@@ -324,4 +346,6 @@ public class CreateVehicle extends JDialog implements ActionListener {
             System.out.println("c:" + vehicles[i]);
         }
     }
+
+
 }

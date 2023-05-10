@@ -5,7 +5,7 @@ package vehicle;
 import javax.swing.*;
 import java.util.Objects;
 
-public abstract class Vehicle {
+public abstract class Vehicle{
     protected String model;
     protected int km;
     protected int maxPassengers;
@@ -60,7 +60,6 @@ public abstract class Vehicle {
     public void setMaxPassengers(int maxPassengers) {
         this.maxPassengers = maxPassengers;
     }
-
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }

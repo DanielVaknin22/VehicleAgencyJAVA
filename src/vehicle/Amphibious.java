@@ -1,7 +1,6 @@
 package vehicle;
 
 import javax.swing.*;
-import java.util.Objects;
 
 public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     private boolean withWind;
@@ -88,7 +87,6 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     public float getAverageLife() {
         return life;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

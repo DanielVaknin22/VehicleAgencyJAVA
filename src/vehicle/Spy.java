@@ -2,8 +2,8 @@ package vehicle;
 /**
  * The Spy class represents a military Aerial vehicle, non-motorized for military use and have an energy score.
  */
+
 import javax.swing.*;
-import java.util.Objects;
 
 public class Spy extends Vehicle implements noMotorized, IAir{
     private String power;
@@ -40,6 +40,7 @@ public class Spy extends Vehicle implements noMotorized, IAir{
     public energyScore getEnergyScore() {
         return energy;
     }
+
 
     @Override
     public String toString() {

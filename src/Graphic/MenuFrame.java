@@ -6,17 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.Component;
 
 public class MenuFrame extends JFrame implements ActionListener {
 
     private static JButton[] ArrJButton = new JButton[6];
-    private Vehicle[] vehicles;
+    private static Vehicle[] vehicles;
 
 
     public MenuFrame(){
-        new CreateVehicle();
+
         JFrame frame = new JFrame("Menu");
         setTitle("Menu");
         this.setLayout((LayoutManager)null);
@@ -38,7 +36,7 @@ public class MenuFrame extends JFrame implements ActionListener {
     }
 
     public void InitButtons() {
-        String[] nameArray = {"Add Vehicle", "Buy Vehicle", "Test Drive", "Change Flag", "Reset Distance", "Exit"};
+        String[] nameArray = {"Add Vehicle", "Buy Vehicle", "Test Drive", "Set Flag", "Reset KM", "Exit"};
         int x = 60, y = 100;
         for (int i = 0; i < ArrJButton.length; i++) {
             ArrJButton[i] = new JButton(nameArray[i]);//create new button
@@ -55,6 +53,7 @@ public class MenuFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ArrJButton[0]) {
+            this.setVisible(false);
             CreateVehicle createVehicle = new CreateVehicle();
             this.vehicles = createVehicle.updateVehicle();
             for (int i = 0; i < vehicles.length; i++) {
@@ -62,7 +61,11 @@ public class MenuFrame extends JFrame implements ActionListener {
             }
         }
         if(e.getSource() == ArrJButton[1]){
-
+            BuyVehicle buyVehicle = new BuyVehicle();
+            this.vehicles = buyVehicle.updateVehicle();
+            for (int i = 0; i < vehicles.length; i++) {
+                System.out.println("m:" + vehicles[i]);
+            }
         }
 
     }

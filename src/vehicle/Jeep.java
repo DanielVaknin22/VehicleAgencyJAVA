@@ -39,6 +39,7 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
         this.fuel = fuel;
     }
 
+
     /**
      * Sets the average lifespan of the Jeep.
      * @param life The average lifespan.

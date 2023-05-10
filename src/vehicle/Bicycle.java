@@ -1,7 +1,6 @@
 package vehicle;
 
 import javax.swing.*;
-import java.util.Objects;
 
 public class Bicycle extends Vehicle implements noMotorized, ILand{
 
@@ -49,7 +48,6 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
     public void setPowerSource(String power) {
         this.power = power;
     }
-
     @Override
     public void setEnergyScore(energyScore energy) {
         this.energy = energy;

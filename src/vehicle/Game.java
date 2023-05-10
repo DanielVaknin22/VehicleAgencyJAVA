@@ -1,7 +1,6 @@
 package vehicle;
 
 import javax.swing.*;
-import java.util.Objects;
 /**
  * The GameGlider class represents a toy air vehicle, non-motorized for civil use and have an energy score.
  */
@@ -74,7 +73,6 @@ public class Game extends Vehicle implements noMotorized, IAir{
      * @param o The object to compare to.
      * @return true if the objects are equal, false otherwise.
      */
-
 
     @Override
     public String getUse() {
