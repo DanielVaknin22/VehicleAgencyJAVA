@@ -119,7 +119,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     private Frigate createFrigate() {
-        String[] color = new String[]{"Grey", "Red", "White", "Blue"};
+        String[] color = new String[]{"Grey", "White"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Frigate: ", "color", 3, (Icon)null, color, color[0]);
         String model = JOptionPane.showInputDialog(this, "Enter Model: ");
         int maxPassengers = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Passengers: "));
@@ -127,13 +127,9 @@ public class CreateVehicle extends JDialog implements ActionListener {
         boolean witheWind = this.windDirection();
         switch (option) {
             case "Grey":
-                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\jeep1.png"));
-            case "Red":
-                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\jeep2.png"));
+                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\Frigate1.png"));
             case "White":
-                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\jeep3.png"));
-            case "Blue":
-                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\jeep4.png"));
+                return new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\Frigate2.png"));
             default:
                 return null;
         }
@@ -154,39 +150,36 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     private Game createGame() {
-        String[] color = new String[]{"Grey", "Red", "White", "Blue"};
+        String[] color = new String[]{"Blue", "Red", "Green", "Grey"};
         switch ((String)JOptionPane.showInputDialog(this, "Choose the color of the Game: ", "color", 3, (Icon)null, color, color[0])) {
-            case "Grey":
-                return new Game(new ImageIcon("Pictures\\jeep1.png"));
-            case "Red":
-                return new Game(new ImageIcon("Pictures\\jeep2.png"));
-            case "White":
-                return new Game(new ImageIcon("Pictures\\jeep3.png"));
             case "Blue":
-                return new Game(new ImageIcon("Pictures\\jeep4.png"));
+                return new Game(new ImageIcon("Pictures\\Game1.png"));
+            case "Red":
+                return new Game(new ImageIcon("Pictures\\Game2.png"));
+            case "Green":
+                return new Game(new ImageIcon("Pictures\\Game3.png"));
+            case "Grey":
+                return new Game(new ImageIcon("Pictures\\Game4.png"));
             default:
                 return null;
         }
     }
 
     private Spy createSpy() {
-        String[] color = new String[]{"Grey", "Red", "White", "Blue"};
+        String[] color = new String[]{"Black", "White"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Spy: ", "color", 3, (Icon)null, color, color[0]);
         String power = JOptionPane.showInputDialog(this, "Enter Power: ");
         switch (option) {
-            case "Grey":
-                return new Spy(power, new ImageIcon("Pictures\\jeep1.png"));
-            case "Red":
-                return new Spy(power, new ImageIcon("Pictures\\jeep2.png"));
+            case "Black":
+                return new Spy(power, new ImageIcon("Pictures\\Spy1.png"));
             case "White":
-                return new Spy(power, new ImageIcon("Pictures\\jeep3.png"));
-            case "Blue":
-                return new Spy(power, new ImageIcon("Pictures\\jeep4.png"));
+                return new Spy(power, new ImageIcon("Pictures\\Spy2.png"));
             default:
                 return null;
         }
     }
 
+    //צריך להוסיף תמונות של זה ולשנות את הקוד בהתאם
     private Amphibious createAmphibius() {
         String[] color = new String[]{"Grey", "Red", "White", "Blue"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
@@ -213,29 +206,29 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     private Bicycle createBicycle() {
-        String[] color = new String[]{"Grey", "Red", "White", "Blue"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
+        String[] color = new String[]{"Red", "Blue", "Purple", "Black"};
+        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Bicycle: ", "color", 3, (Icon)null, color, color[0]);
         String model = JOptionPane.showInputDialog(this, "Enter Model: ");
         int maxPassengers = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Passengers: "));
         int maxSpeed = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Speed: "));
         String roadType = JOptionPane.showInputDialog(this, "Enter Road Type: ");
         switch (option) {
-            case "Grey":
-                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\jeep1.png"));
             case "Red":
-                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\jeep2.png"));
-            case "White":
-                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\jeep3.png"));
+                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle1.png"));
             case "Blue":
-                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\jeep4.png"));
+                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle2.png"));
+            case "Purple":
+                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle3.png"));
+            case "Black":
+                return new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle4.png"));
             default:
                 return null;
         }
     }
 
     private CruiseShip createCruiseShip() {
-        String[] color = new String[]{"Grey", "Red", "White", "Blue"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "color", 3, (Icon)null, color, color[0]);
+        String[] color = new String[]{"Blue", "White"};
+        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Cruise Ship: ", "color", 3, (Icon)null, color, color[0]);
         String model = JOptionPane.showInputDialog(this, "Enter Model: ");
         int maxPassengers = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Passengers: "));
         int maxSpeed = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter Max Speed: "));
@@ -243,14 +236,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         float avFuel = Float.parseFloat(JOptionPane.showInputDialog(this, "Enter Average Fuel: "));
         float avLife = Float.parseFloat(JOptionPane.showInputDialog(this, "Enter Average Life: "));
         switch (option) {
-            case "Grey":
-                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\jeep1.png"));
-            case "Red":
-                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\jeep2.png"));
-            case "White":
-                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\jeep3.png"));
             case "Blue":
-                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\jeep4.png"));
+                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\CruiseShip1.png"));
+            case "White":
+                return new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\CruiseShip2.png"));
             default:
                 return null;
         }
