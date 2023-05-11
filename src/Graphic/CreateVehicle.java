@@ -14,17 +14,11 @@ public class CreateVehicle extends JDialog implements ActionListener {
     //private static JButton[] imgButton = new JButton[4];
     private static Vehicle[] vehicles;
 
-    public CreateVehicle() {
-        new JFrame("Car Agency");
-        this.setTitle("Car Agency");
-        this.setLayout((LayoutManager)null);
-        this.setBounds(0, 30, 600, 730);
-        this.setLocationRelativeTo(null);
+    public CreateVehicle(JFrame window, Vehicle[] vehicle) {
+        super(window,"Create Vehicle",true);
+        vehicles = vehicle;
         this.InitButtons();
-        this.SetImageAndPlaceText();
-        this.setVisible(true);
         JPanel createPanel = new JPanel();
-        createPanel.setLayout((LayoutManager)null);
         createPanel.setBounds(15, 0, 600, 500);
         for(int i = 0; i < ArrJButton.length; ++i) {
             createPanel.add(ArrJButton[i]);
@@ -39,17 +33,23 @@ public class CreateVehicle extends JDialog implements ActionListener {
         Choose.setBounds(175, -20, 400, 150);
         createPanel.add(Choose);
         this.add(createPanel);
+        this.setBounds(0, 30, 600, 730);
+        this.setLocationRelativeTo(null);
+        this.SetImageAndPlaceText();
+        this.setVisible(true);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Create and display the second window
-                MenuFrame menu = new MenuFrame(vehicles);
-                menu.setVisible(true);
+                //MenuFrame menu = new MenuFrame();
+                setVisible(true);
             }
         });
 
     }
-
+    public Vehicle[] getVehicles(){
+        return vehicles;
+    }
     public void InitButtons() {
         String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
         int x = 60;
@@ -81,21 +81,6 @@ public class CreateVehicle extends JDialog implements ActionListener {
         }
 
     }
-
-    /**public void SetImageVehicle(String[] imageFilePath) {
-        String[] img = new String[]{"Pictures\\jeep1.png", "Pictures\\jeep2.png", "Pictures\\jeep3.png", "Pictures\\jeep4.png"};
-        for(int i = 0; i < imgButton.length; ++i) {
-            ImageIcon icon = new ImageIcon(img[i]);
-            Image im = icon.getImage();
-            Image scaledIm = im.getScaledInstance(100, 85, 4);
-            ImageIcon img1 = new ImageIcon(scaledIm);
-            imgButton[i].setIcon(img1);
-            imgButton[i].setHorizontalTextPosition(0);
-            imgButton[i].setVerticalTextPosition(1);
-            imgButton[i].setBackground(new Color(212, 230, 253));
-        }
-
-    }**/
 
     public Vehicle[] updateVehicle() {
         Vehicle[] newVehicle;
@@ -330,8 +315,6 @@ public class CreateVehicle extends JDialog implements ActionListener {
         } else if (e.getSource() == ArrJButton[7]) {
             if (this.vehicles != null) {
                 this.setVisible(false);
-                new MenuFrame(vehicles);
-
             } else {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
             }
