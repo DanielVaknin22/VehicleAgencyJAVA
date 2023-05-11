@@ -68,7 +68,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     public void SetImageAndPlaceText() {
-        String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"};
+        String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\GameIcon.png", "Pictures\\AmphibiousIcon.png", "Pictures\\BicycleIcon.png", "Pictures\\CruiseShipIcon.png", "Pictures\\MenuIcon.png"};
         for(int i = 0; i < ArrJButton.length; ++i) {
             ImageIcon icon = new ImageIcon(sourceImg[i]);
             Image im = icon.getImage();
