@@ -214,7 +214,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == ArrJButton[5]){
             int option = JOptionPane.showConfirmDialog(null, "Are you sure?", "message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                JOptionPane.showConfirmDialog(null, "Bye Bye!", "Exit", JOptionPane.CLOSED_OPTION);
+                JOptionPane.showMessageDialog(null, "Bye Bye!");
                 System.exit(0);
             }
         }
