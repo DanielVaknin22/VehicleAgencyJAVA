@@ -25,6 +25,10 @@ public abstract class Vehicle{
         this.img = img;
     }
 
+    public ImageIcon getImg(){
+        return this.img;
+    }
+
     /**
      * Moves the vehicle a given distance in kilometers.
      * @param distance the distance to move the vehicle in kilometers

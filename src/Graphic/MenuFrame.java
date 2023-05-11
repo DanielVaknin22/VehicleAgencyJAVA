@@ -13,10 +13,9 @@ public class MenuFrame extends JFrame implements ActionListener {
     private static Vehicle[] vehicles;
 
 
-    public MenuFrame(){
-
-        JFrame frame = new JFrame("Menu");
-        setTitle("Menu");
+    public MenuFrame(Vehicle[] vehicle){
+        vehicles = vehicle;
+        this.setTitle("Menu");
         this.setLayout((LayoutManager)null);
         setBounds(0, 30, 600, 730);
         setLocationRelativeTo(null);
@@ -50,6 +49,32 @@ public class MenuFrame extends JFrame implements ActionListener {
         }
     }
 
+    private static Vehicle[] removeVehicle(Vehicle[] vehicle, int i) {
+        Vehicle[] newVehicle = new Vehicle[vehicle.length - 1];
+        int k = 0;
+        for (int j = 0; j < vehicle.length; j++) {
+            if (j != i){
+                newVehicle[k] = vehicle[j];
+                k++;
+            }
+        }
+        return newVehicle;
+    }
+
+    public Vehicle[] updateVehicle() {
+        Vehicle[] newVehicle;
+        if (this.vehicles != null) {
+            newVehicle = new Vehicle[this.vehicles.length + 1];
+
+            for(int i = 0; i < this.vehicles.length; ++i) {
+                newVehicle[i] = this.vehicles[i];
+            }
+        } else {
+            newVehicle = new Vehicle[1];
+        }
+        return newVehicle;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ArrJButton[0]) {
@@ -57,13 +82,14 @@ public class MenuFrame extends JFrame implements ActionListener {
             CreateVehicle createVehicle = new CreateVehicle();
             this.vehicles = createVehicle.updateVehicle();
             for (int i = 0; i < vehicles.length; i++) {
-                System.out.println("m:" + vehicles[i]);
+                System.out.println("m1:" + vehicles[i]);
             }
         }
         if(e.getSource() == ArrJButton[1]){
-            BuyVehicle buyVehicle = new BuyVehicle();
-            this.vehicles = buyVehicle.updateVehicle();
-            for (int i = 0; i < vehicles.length; i++) {
+            BuyVehicle buyVehicle = new BuyVehicle(this, this.vehicles);
+            int k = buyVehicle.getIndex();
+            this.vehicles = removeVehicle(vehicles,k);
+            for (int i = 0; i < vehicles.length-1; i++) {
                 System.out.println("m:" + vehicles[i]);
             }
         }

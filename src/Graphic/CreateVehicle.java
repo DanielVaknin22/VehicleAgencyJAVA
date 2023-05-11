@@ -43,16 +43,12 @@ public class CreateVehicle extends JDialog implements ActionListener {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Create and display the second window
-                MenuFrame menu = new MenuFrame();
+                MenuFrame menu = new MenuFrame(vehicles);
                 menu.setVisible(true);
             }
         });
 
     }
-    public int getLengthVehicles(){
-        return vehicles.length;
-    }
-
 
     public void InitButtons() {
         String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
@@ -69,9 +65,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
             ArrJButton[i].setBounds(x, y, 105, 100);
             x += 110;
         }
-
     }
-
 
     public void SetImageAndPlaceText() {
         String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png", "Pictures\\JeepIcon.png"};
@@ -336,7 +330,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
         } else if (e.getSource() == ArrJButton[7]) {
             if (this.vehicles != null) {
                 this.setVisible(false);
-                new MenuFrame();
+                new MenuFrame(vehicles);
 
             } else {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
