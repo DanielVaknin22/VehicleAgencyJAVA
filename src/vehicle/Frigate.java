@@ -22,6 +22,7 @@ public class Frigate extends Vehicle implements Motorized, IMarine{
      * @param maxPassengers the maximum number of passengers the frigate can carry
      * @param maxSpeed the maximum speed of the frigate
      * @param withWind a boolean indicating whether or not the frigate can sail with the wind
+     * @param img The img of the Frigate.
      */
     public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind, ImageIcon img) {
         super(model, maxPassengers, maxSpeed, img);

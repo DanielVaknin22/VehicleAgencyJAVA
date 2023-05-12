@@ -7,12 +7,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents a dialog for changing the flag of a vehicle.
+ */
 public class ChangeFlag extends JDialog implements ActionListener {
     private static Vehicle[] vehicles;
     private static JButton[] ArrJButton = new JButton[8];
     private int index;
 
-
+    /**
+     * Constructs a new ChangeFlag dialog instance.
+     * @param window  The parent frame for the dialog.
+     * @param vehicle An array of vehicles to change the flag for.
+     */
     public ChangeFlag(JFrame window, Vehicle[] vehicle) {
         super(window, "Change Flag", true);
         vehicles = vehicle;
@@ -41,10 +48,17 @@ public class ChangeFlag extends JDialog implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * @return The index of the selected flag.
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Handles the action events from the buttons in the dialog.
+     * @param e The ActionEvent object.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         index = -1;

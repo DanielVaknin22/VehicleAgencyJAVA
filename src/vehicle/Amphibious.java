@@ -13,9 +13,10 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     /**
      * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
      *
-     * @param model         the model of the vehicle
+     * @param model the model of the vehicle
      * @param maxPassengers the maximum number of passengers the vehicle can carry
-     * @param maxSpeed      the maximum speed of the vehicle
+     * @param maxSpeed the maximum speed of the vehicle
+     * @param img The img of the Amphibious.
      */
     public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life, ImageIcon img) {
         super(model, maxPassengers, maxSpeed,img);

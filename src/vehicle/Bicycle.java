@@ -12,9 +12,10 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
     /**
      * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
      *
-     * @param model         the model of the vehicle
+     * @param model the model of the vehicle
      * @param maxPassengers the maximum number of passengers the vehicle can carry
-     * @param maxSpeed      the maximum speed of the vehicle
+     * @param maxSpeed the maximum speed of the vehicle
+     * @param img The img of the Bicycle.
      */
     public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType, ImageIcon img) {
         super(model, maxPassengers, maxSpeed,img);

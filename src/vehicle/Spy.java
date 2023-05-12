@@ -13,6 +13,7 @@ public class Spy extends Vehicle implements noMotorized, IAir{
      * Constructs a Spy object with the given model, maximum number of passengers, maximum speed,
      * and energy score. all data members is by default.
      * @param power the source of power of the Spy.
+     * @param img The img of the Spy.
      */
     public Spy(String power, ImageIcon img) {
         super("private" ,1 , 50,img);

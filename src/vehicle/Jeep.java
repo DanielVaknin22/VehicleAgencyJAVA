@@ -20,6 +20,7 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
      * @param maxSpeed The maximum speed of the Jeep in kilometers per hour.
      * @param fuel The average fuel consumption of the Jeep in liters per 100 kilometers..
      * @param life The average lifespan of the Jeep in years.
+     * @param img The img of the Jeep.
      */
     public Jeep(String model, int maxSpeed, float fuel, float life, ImageIcon img) {
         super(model, 5, maxSpeed, img);

@@ -1,16 +1,23 @@
 package Graphic;
 
 import vehicle.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents a dialog window for creating a vehicle.
+ */
 public class CreateVehicle extends JDialog implements ActionListener {
     private static JButton[] ArrJButton = new JButton[8];
     private static Vehicle[] vehicles;
 
+    /**
+     * Constructs a CreateVehicle dialog window.
+     * @param window the parent JFrame window
+     * @param vehicle an array of Vehicle objects
+     */
     public CreateVehicle(JFrame window, Vehicle[] vehicle) {
         super(window, "Create Vehicle", true);
         vehicles = vehicle;
@@ -41,10 +48,16 @@ public class CreateVehicle extends JDialog implements ActionListener {
         this.setVisible(true);
     }
 
-
+    /**
+     * @return the array of Vehicle objects
+     */
     public Vehicle[] getVehicles(){
         return vehicles;
     }
+
+    /**
+     * Initializes the buttons for vehicle types.
+     */
     public void InitButtons() {
         String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
         int x = 85, y = 100;
@@ -61,6 +74,9 @@ public class CreateVehicle extends JDialog implements ActionListener {
         }
     }
 
+    /**
+     * Sets images and places text for the buttons.
+     */
     public void SetImageAndPlaceText() {
         String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\GameIcon.png", "Pictures\\AmphibiousIcon.png", "Pictures\\BicycleIcon.png", "Pictures\\CruiseShipIcon.png", "Pictures\\MenuIcon.png"};
         for(int i = 0; i < ArrJButton.length; ++i) {
@@ -75,7 +91,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
 
     }
 
-
+    /**
+     * Creates a Jeep object based on user input.
+     * @return The created Jeep object or null if the user cancels the operation.
+     */
     private Jeep createJeep() {
         String[] color = new String[]{"Grey", "Red", "White", "Blue"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "color", 3, (Icon)null, color, color[0]);
@@ -153,6 +172,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Creates a Frigate object based on user input.
+     * @return The created Frigate object or null if the user cancels the operation.
+     */
     private Frigate createFrigate() {
         String[] color = new String[]{"Grey", "White", "Green"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Frigate: ", "color", 3, (Icon)null, color, color[0]);
@@ -230,6 +253,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         return withWindButton.isSelected();
     }
 
+    /**
+     * Creates a Game object based on user input.
+     * @return The created Game object or null if the user cancels the operation.
+     */
     private Game createGame() {
         String[] color = new String[]{"Blue", "Red", "Green", "Grey"};
         return switch ((String) JOptionPane.showInputDialog(this, "Choose the color of the Game: ", "color", 3, (Icon) null, color, color[0])) {
@@ -241,6 +268,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Creates a Spy object based on user input.
+     * @return The created Spy object or null if the user cancels the operation.
+     */
     private Spy createSpy() {
         String[] color = new String[]{"Black", "White"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Spy: ", "color", 3, (Icon)null, color, color[0]);
@@ -265,6 +296,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Creates a Amphibious object based on user input.
+     * @return The created Amphibious object or null if the user cancels the operation.
+     */
     private Amphibious createAmphibious() {
         String[] color = new String[]{"Yellow", "Black", "Red", "Military"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
@@ -395,6 +430,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Creates a Bicycle object based on user input.
+     * @return The created Bicycle object or null if the user cancels the operation.
+     */
     private Bicycle createBicycle() {
         String[] color = new String[]{"Red", "Blue", "Purple", "Black"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Bicycle: ", "color", 3, (Icon)null, color, color[0]);
@@ -473,6 +512,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Creates a Cruise Ship object based on user input.
+     * @return The created Cruise Ship object or null if the user cancels the operation.
+     */
     private CruiseShip createCruiseShip() {
         String[] color = new String[]{"Blue", "White"};
         String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Cruise Ship: ", "color", 3, (Icon)null, color, color[0]);
@@ -581,6 +624,12 @@ public class CreateVehicle extends JDialog implements ActionListener {
         };
     }
 
+    /**
+     * Adds a new vehicle to the existing array of vehicles.
+     * @param vehicle The existing array of vehicles.
+     * @param tmpVehicle The new vehicle to be added.
+     * @return The updated array of vehicles.
+     */
     public static Vehicle[] addVehicle(Vehicle[] vehicle, Vehicle tmpVehicle) {
         Vehicle[] newVehicle;
         if (vehicle != null) {
@@ -596,6 +645,10 @@ public class CreateVehicle extends JDialog implements ActionListener {
         return newVehicle;
     }
 
+    /**
+     * Handles the action events triggered by buttons.
+     * @param e The action event object.
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ArrJButton[0]) {
             Jeep jeep = this.createJeep();
@@ -654,6 +707,4 @@ public class CreateVehicle extends JDialog implements ActionListener {
             }
         }
     }
-
-
 }

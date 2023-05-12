@@ -10,6 +10,7 @@ public class Game extends Vehicle implements noMotorized, IAir{
     private String use;
     /**
      * Constructs a new Game object with default values for model, maximum of passengers, maximum speed, power source and energy score.
+     * @param img The img of the Game.
      */
     public Game(ImageIcon img) {
         super("toy", 0, 10,img);

@@ -12,7 +12,11 @@ public class BuyVehicle extends JDialog implements ActionListener {
     private static JButton[] ArrJButton;
     private int index;
 
-
+    /**
+     * Creates a dialog window for buying vehicles.
+     * @param window  The parent JFrame window.
+     * @param vehicle The array of available vehicles.
+     */
     public BuyVehicle(JFrame window, Vehicle[] vehicle) {
         super(window, "Buy Vehicle", true);
         vehicles = vehicle;
@@ -40,6 +44,12 @@ public class BuyVehicle extends JDialog implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Removes a button from the array of buttons.
+     * @param buttons The array of buttons.
+     * @param i The index of the button to be removed.
+     * @return The updated array of buttons.
+     */
     private static JButton[] removeButton(JButton[] buttons, int i) {
         JButton[] newButtons = new JButton[buttons.length - 1];
         int k = 0;
@@ -52,10 +62,17 @@ public class BuyVehicle extends JDialog implements ActionListener {
         return newButtons;
     }
 
+    /**
+     * @return The index of the selected vehicle.
+     */
     public int getIndex(){
         return this.index;
     }
 
+    /**
+     * Handles the action events triggered by buttons.
+     * @param e The action event object.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         index = -1;

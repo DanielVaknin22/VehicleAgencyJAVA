@@ -13,6 +13,11 @@ public class TestDrive extends JDialog implements ActionListener {
     private int index;
     private int km;
 
+    /**
+     * Creates a dialog window for test driving vehicles.
+     * @param window  The parent JFrame window.
+     * @param vehicle The array of available vehicles.
+     */
     public TestDrive(JFrame window, Vehicle[] vehicle) {
         super(window, "Test Drive", true);
         vehicles = vehicle;
@@ -40,14 +45,24 @@ public class TestDrive extends JDialog implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * @return The index of the selected vehicle.
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * @return The number of kilometers driven.
+     */
     public int getKm() {
         return km;
     }
 
+    /**
+     * Handles the action events triggered by buttons.
+     * @param e The action event object.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         index = -1;
