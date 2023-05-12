@@ -65,11 +65,11 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":" + super.toString() +
-                " The power source is: " + power +
-                " The energy score is: " + energy +
-                " It has " + wheels +
-                "wheels. Can move on" + roadType + ".";
+        return this.getClass().getSimpleName() + ":" + "<br>" + super.toString() +
+                "<br>" + " The power source is: " + power +
+                "<br>" + " The energy score is: " + energy +
+                "<br>" + " It has " + wheels + "wheels." +
+                "<br>" + "Can move on" + roadType + ".";
     }
 
     @Override

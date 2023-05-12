@@ -99,11 +99,11 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     @Override
     public String toString() {
         String wind = withWind? " with": " without";
-        return this.getClass().getSimpleName() + ": " + super.toString() +
-                " Under " + flag + " flag, " + wind + " the wind." +
-                " It has " + wheels +
-                " wheels. Can move on " + roadType +
-                " The average fuel is: " + fuel +
-                " The average life is: " + life + ".";
+        return this.getClass().getSimpleName() + ": " + "<br>" + super.toString() +
+                "<br>" + " Under " + flag + " flag, " + wind + " the wind." +
+                "<br>" + " It has " + wheels + " wheels." +
+                "<br>" + "Can move on " + roadType +
+                "<br>" + " The average fuel is: " + fuel +
+                "<br>" + " The average life is: " + life + ".";
     }
 }
