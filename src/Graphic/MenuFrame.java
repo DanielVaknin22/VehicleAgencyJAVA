@@ -21,36 +21,43 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     public MenuFrame() {
         CreateVehicle createVehicle = new CreateVehicle(this, vehicles);
         vehicles = createVehicle.getVehicles();
-        System.out.println("size: " + vehicles.length);
         this.setTitle("Menu");
-        setBounds(0, 30, 700, 830);
+        setBounds(0, 30, 600, 730);
         setLocationRelativeTo(null);//put the windows in the center
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//close the windows when click X
         this.InitButtons();
         this.setVisible(true);
         JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(null);
         ImgPanel = new JPanel();
-        menuPanel.setBounds(15, 0, 600, 500);
-        ImgPanel.setBounds(15, 400, 600, 330);
-        for (int i = 0; i < ArrJButton.length; i++) {
-            menuPanel.add(ArrJButton[i]);
-            ArrJButton[i].addActionListener(this);
+        menuPanel.setBounds(15, 0, 600, 350);
+        ImgPanel.setBounds(15, 0, 600, 700);
+        for (JButton jButton : ArrJButton) {
+            menuPanel.add(jButton);
+            jButton.addActionListener(this);
         }
         ArrImg = new JButton[vehicles.length];
-
+        int x = 60, y = 350;
         for (int i = 0; i < vehicles.length; i++) {
             ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
             Image im = imageIcon.getImage();
-            Image scaledIm = im.getScaledInstance(100, 85, 4);
+            Image scaledIm = im.getScaledInstance(150, 120, 4);
             ArrImg[i] = new JButton(new ImageIcon(scaledIm));
-            ArrImg[i].setBackground(new Color(212, 230, 253));
-            ArrImg[i].setPreferredSize(new Dimension(100, 85));
-        }
+            //ArrImg[i].setPreferredSize(new Dimension(150, 120));
+            if (i == ArrImg.length / 2)//to get new line
+            {
+                y = 475;
+                x = 60;
+            }
+            ArrImg[i].setBounds(x, y, 150, 120);
+            x += 155;
 
+        }
         initImgPanel(ArrImg);
         this.add(menuPanel);
         this.add(ImgPanel);
     }
+
 
     private void initImgPanel(JButton[] arrB) {
         ImgPanel.removeAll();
@@ -64,13 +71,13 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
 
     public void InitButtons() {
         String[] nameArray = {"Add Vehicle", "Buy Vehicle", "Test Drive", "Set Flag", "Reset KM", "Exit"};
-        int x = 60, y = 100;
+        int x = 110, y = 100;
         for (int i = 0; i < ArrJButton.length; i++) {
             ArrJButton[i] = new JButton(nameArray[i]);//create new button
             if (i == ArrJButton.length / 2)//to get new line
             {
                 y = 210;
-                x = 60;
+                x = 110;
             }
             ArrJButton[i].setBounds(x, y, 105, 100);//resize the buttons
             x += 110;
@@ -96,14 +103,22 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (popup != null) {
+            popup.hide();
+        }
+
+        JLabel[] labels = new JLabel[ArrImg.length];
+
         for (int i = 0; i < ArrImg.length; i++) {
-            if (popup != null) popup.hide();
-            JLabel label = new JLabel();
-            label.setText(vehicles[i].toString());
-            popup = PopupFactory.getSharedInstance().getPopup(e.getComponent(), label, e.getXOnScreen(), e.getYOnScreen());
-            popup.show();
+            if (e.getSource() == ArrImg[i]) {
+                labels[i] = new JLabel(vehicles[i].toString());
+                popup = PopupFactory.getSharedInstance().getPopup(e.getComponent(), labels[i], e.getXOnScreen(), e.getYOnScreen());
+                popup.show();
+            }
         }
     }
+
+
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -120,23 +135,9 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
 
     }
 
-    private Vehicle[] testDrive(Vehicle[] vehicle, int i,int km) {
+    private Vehicle[] testDrive(Vehicle[] vehicle, int i, int km) {
         vehicle[i].Move(km);
         return vehicle;
-    }
-
-    public Vehicle[] updateVehicle() {
-        Vehicle[] newVehicle;
-        if (this.vehicles != null) {
-            newVehicle = new Vehicle[this.vehicles.length + 1];
-
-            for (int i = 0; i < this.vehicles.length; ++i) {
-                newVehicle[i] = this.vehicles[i];
-            }
-        } else {
-            newVehicle = new Vehicle[1];
-        }
-        return newVehicle;
     }
 
     private static JButton[] removeButton(JButton[] buttons, int i) {
@@ -153,13 +154,21 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
 
     public JButton[] addButton(JButton[] arrImg){
         arrImg = new JButton[vehicles.length];
+        int x = 60, y = 350;
         for (int i = 0; i < vehicles.length; i++) {
             ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
             Image im = imageIcon.getImage();
             Image scaledIm = im.getScaledInstance(100, 85, 4);
             arrImg[i] = new JButton(new ImageIcon(scaledIm));
-            arrImg[i].setBackground(new Color(212, 230, 253));
             arrImg[i].setPreferredSize(new Dimension(100, 85));
+            if (i == arrImg.length / 2)//to get new line
+            {
+                y = 440;
+                x = 60;
+            }
+            arrImg[i].setBounds(x, y, 100, 85);
+            x += 105;
+
         }
         return arrImg;
     }
@@ -171,43 +180,43 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             vehicles = createVehicle.getVehicles();
             ArrImg = addButton(ArrImg);
             initImgPanel(ArrImg);
-            for (int i = 0; i < vehicles.length; i++) {
-                System.out.println("m1:" + vehicles[i]);
-            }
         }
         if (e.getSource() == ArrJButton[1]) {
             BuyVehicle buyVehicle = new BuyVehicle(this, vehicles);
             int k = buyVehicle.getIndex();
-            vehicles = removeVehicle(vehicles, k);
-            ArrImg = removeButton(ArrImg, k);
-            initImgPanel(ArrImg);
-            this.revalidate();
-            this.repaint();
-            for (int i = 0; i < vehicles.length - 1; i++) {
-                System.out.println("m:" + vehicles[i]);
+            if (k > -1 && k < vehicles.length - 1) {
+                vehicles = removeVehicle(vehicles, k);
+                ArrImg = removeButton(ArrImg, k);
+                initImgPanel(ArrImg);
+                this.revalidate();
+                this.repaint();
             }
         }
         if (e.getSource() == ArrJButton[2]) {
-            TestDrive testDrive = new TestDrive(this,vehicles);
+            TestDrive testDrive = new TestDrive(this, vehicles);
             int j = testDrive.getIndex();
-            int k = testDrive.getKm();
-            vehicles = testDrive(vehicles,j,k);
+            if (j > -1 && j < vehicles.length - 1) {
+                int k = testDrive.getKm();
+                vehicles = testDrive(vehicles, j, k);
+            }
         }
-        if (e.getSource() == ArrJButton[3]){
-            ChangeFlag changeFlag = new ChangeFlag(this,vehicles);
+        if (e.getSource() == ArrJButton[3]) {
+            ChangeFlag changeFlag = new ChangeFlag(this, vehicles);
             int k = changeFlag.getIndex();
             String[] img = {"Israel", "USA", "Germany", "Somalia", "Italy", "Pirath", "Greece"};
-            for (int i = 0; i < vehicles.length; i++) {
-                if(vehicles[i] instanceof IMarine){
-                    ((IMarine) vehicles[i]).setFlag(img[k]);
+            if (k > -1 && k < vehicles.length - 1) {
+                for (Vehicle vehicle : vehicles) {
+                    if (vehicle instanceof IMarine) {
+                        ((IMarine) vehicle).setFlag(img[k]);
+                    }
                 }
             }
         }
         if(e.getSource() == ArrJButton[4]){
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the distance traveled?", "message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                for (int i = 0; i < vehicles.length; i++) {
-                    vehicles[i].setKm(0);
+                for (Vehicle vehicle : vehicles) {
+                    vehicle.setKm(0);
                 }
             }
         }
