@@ -28,7 +28,7 @@ public class TestDrive extends JDialog implements ActionListener {
         JPanel testDrivePanel = new JPanel();
         this.setLayout(null);
         testDrivePanel.setBounds(0, 30, 600, 500);
-        ArrJButton = new JButton[vehicle.length + 1];
+        ArrJButton = new JButton[vehicle.length];
         for (int i = 0; i < vehicles.length; i++) {
             ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
             Image im = imageIcon.getImage();
@@ -37,7 +37,7 @@ public class TestDrive extends JDialog implements ActionListener {
             ArrJButton[i].setPreferredSize(new Dimension(120, 100));
         }
 
-        for (int i = 0; i < ArrJButton.length - 1; i++) {
+        for (int i = 0; i < ArrJButton.length; i++) {
             testDrivePanel.add(ArrJButton[i]);
             ArrJButton[i].addActionListener(this);
 

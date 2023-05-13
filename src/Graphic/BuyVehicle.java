@@ -27,7 +27,7 @@ public class BuyVehicle extends JDialog implements ActionListener {
         JPanel buyPanel = new JPanel();
         this.setLayout(null);
         buyPanel.setBounds(0, 30, 600, 500);
-        ArrJButton = new JButton[vehicle.length + 1];
+        ArrJButton = new JButton[vehicle.length];
 
         for (int i = 0; i < vehicles.length; i++) {
             ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
@@ -36,7 +36,7 @@ public class BuyVehicle extends JDialog implements ActionListener {
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
             ArrJButton[i].setPreferredSize(new Dimension(120,100));
         }
-        for (int i = 0; i < ArrJButton.length-1; i++) {
+        for (int i = 0; i < ArrJButton.length; i++) {
             buyPanel.add(ArrJButton[i]);
             ArrJButton[i].addActionListener(this);
 
