@@ -36,9 +36,9 @@ public class BuyVehicle extends JDialog implements ActionListener {
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
             ArrJButton[i].setPreferredSize(new Dimension(120,100));
         }
-        for (int i = 0; i < ArrJButton.length; i++) {
-            buyPanel.add(ArrJButton[i]);
-            ArrJButton[i].addActionListener(this);
+        for (JButton jButton : ArrJButton) {
+            buyPanel.add(jButton);
+            jButton.addActionListener(this);
 
         }
         returnToMenu.addActionListener(this);

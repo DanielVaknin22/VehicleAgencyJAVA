@@ -37,9 +37,9 @@ public class TestDrive extends JDialog implements ActionListener {
             ArrJButton[i].setPreferredSize(new Dimension(120, 100));
         }
 
-        for (int i = 0; i < ArrJButton.length; i++) {
-            testDrivePanel.add(ArrJButton[i]);
-            ArrJButton[i].addActionListener(this);
+        for (JButton jButton : ArrJButton) {
+            testDrivePanel.add(jButton);
+            jButton.addActionListener(this);
 
         }
         returnToMenu.addActionListener(this);
