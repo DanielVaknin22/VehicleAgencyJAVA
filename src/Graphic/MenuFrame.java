@@ -250,7 +250,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             ChangeFlag changeFlag = new ChangeFlag(this, vehicles);
             int k = changeFlag.getIndex();
             String[] img = {"Israel", "USA", "Germany", "Somalia", "Italy", "Pirath", "Greece"};
-            if (k > -1 && k < ArrJButton.length) {
+            if (k > -1 && k < img.length) {
                 for (Vehicle vehicle : vehicles) {
                     if (vehicle instanceof IMarine) {
                         ((IMarine) vehicle).setFlag(img[k]);
