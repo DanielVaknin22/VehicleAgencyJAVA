@@ -81,7 +81,7 @@ public class BuyVehicle extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         index = -1;
-        for (int i = 0; i < ArrJButton.length - 1; i++) {
+        for (int i = 0; i < ArrJButton.length; i++) {
             if(e.getSource() == ArrJButton[i]){
                 int option = JOptionPane.showConfirmDialog(null,"Are you sure you want to buy this vehicle?", "message", JOptionPane.YES_NO_OPTION);
                 if(option == JOptionPane.YES_OPTION){

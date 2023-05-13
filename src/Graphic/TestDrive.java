@@ -72,7 +72,7 @@ public class TestDrive extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         index = -1;
-        for (int i = 0; i < ArrJButton.length - 1; i++) {
+        for (int i = 0; i < ArrJButton.length; i++) {
             if (e.getSource() == ArrJButton[i]) {
                 boolean validInput = false;
                 while (!validInput) {
