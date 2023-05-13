@@ -10,12 +10,13 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
     private String roadType;
 
     /**
-     * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
-     *
-     * @param model the model of the vehicle
-     * @param maxPassengers the maximum number of passengers the vehicle can carry
-     * @param maxSpeed the maximum speed of the vehicle
-     * @param img The img of the Bicycle.
+     * Constructs a new Bicycle object with the given model, maximum number of passengers, maximum speed,
+     * road type, and image.
+     * @param model the model of the bicycle
+     * @param maxPassengers the maximum number of passengers the bicycle can carry
+     * @param maxSpeed the maximum speed of the bicycle
+     * @param roadType the type of road the bicycle is suitable for
+     * @param img the image representing the bicycle
      */
     public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType, ImageIcon img) {
         super(model, maxPassengers, maxSpeed,img);
@@ -64,13 +65,17 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
         return energy;
     }
 
+    /**
+     *  toString method to represent a Bicycle object.
+     * @return a string representation of the Bicycle object.
+     */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":" + "<br>" + super.toString() +
-                "<br>" + " The power source is: " + power +
-                "<br>" + " The energy score is: " + energy +
-                "<br>" + " It has " + wheels + "wheels." +
-                "<br>" + "Can move on" + roadType + ".";
+        return this.getClass().getSimpleName() + ":" + super.toString() +
+                " The power source is: " + power +
+                " The energy score is: " + energy +
+                " It has " + wheels + "wheels." +
+                "Can move on" + roadType + ".";
     }
 
     @Override

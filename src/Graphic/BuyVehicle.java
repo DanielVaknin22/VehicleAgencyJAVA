@@ -20,7 +20,7 @@ public class BuyVehicle extends JDialog implements ActionListener {
     public BuyVehicle(JFrame window, Vehicle[] vehicle) {
         super(window, "Buy Vehicle", true);
         vehicles = vehicle;
-        this.setBounds(0, 30, 600, 730);
+        this.setBounds(0, 30, 730, 730);
         this.setLocationRelativeTo(null);//put the windows in the center
         JPanel buyPanel = new JPanel(new GridLayout(vehicle.length, 1));
         buyPanel.setBounds(15, 0, 600, 500);

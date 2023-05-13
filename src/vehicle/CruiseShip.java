@@ -10,12 +10,15 @@ public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercia
     private licenseType license;
 
     /**
-     * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
-     *
-     * @param model the model of the vehicle
-     * @param maxPassengers the maximum number of passengers the vehicle can carry
-     * @param maxSpeed the maximum speed of the vehicle
-     * @param img The img of the Cruise Ship.
+     * Constructs a new CruiseShip object with the given model, maximum number of passengers, maximum speed,
+     * flag, fuel, life, and image.
+     * @param model the model of the cruise ship
+     * @param maxPassengers the maximum number of passengers the cruise ship can carry
+     * @param maxSpeed the maximum speed of the cruise ship
+     * @param flag the flag representing the cruise ship's nationality
+     * @param fuel the average fuel consumption of the cruise ship
+     * @param life the average life expectancy of the cruise ship
+     * @param img the image representing the cruise ship
      */
     public CruiseShip(String model, int maxPassengers, int maxSpeed, String flag, float fuel, float life, ImageIcon img) {
         super(model, maxPassengers, maxSpeed, img);
@@ -64,6 +67,10 @@ public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercia
         return withWind == cruiseShip.withWind && Float.compare(cruiseShip.fuel, fuel) == 0 && Float.compare(cruiseShip.life, life) == 0 && flag.equals(cruiseShip.flag) && license == cruiseShip.license;
     }
 
+    /**
+     *  toString method to represent a Cruise Ship object.
+     * @return a string representation of the Cruise Ship object.
+     */
     @Override
     public String toString() {
         String wind = withWind? " with": " without";

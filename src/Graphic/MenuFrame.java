@@ -230,7 +230,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == ArrJButton[1]) {
             BuyVehicle buyVehicle = new BuyVehicle(this, vehicles);
             int k = buyVehicle.getIndex();
-            if (k > -1 && k < vehicles.length - 1) {
+            if (k > -1 && k < vehicles.length) {
                 vehicles = removeVehicle(vehicles, k);
                 ArrImg = removeButton(ArrImg, k);
                 initImgPanel(ArrImg);

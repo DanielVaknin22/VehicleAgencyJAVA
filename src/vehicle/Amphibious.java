@@ -11,12 +11,17 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     private float life;
 
     /**
-     * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
-     *
-     * @param model the model of the vehicle
+     * Constructs a new Amphibious object with the given model, maximum number of passengers, maximum speed,
+     * number of wheels, flag, wind presence, fuel average, life average, and image.
+     * @param model the model of the amphibious vehicle
      * @param maxPassengers the maximum number of passengers the vehicle can carry
      * @param maxSpeed the maximum speed of the vehicle
-     * @param img The img of the Amphibious.
+     * @param wheels the number of wheels on the vehicle
+     * @param flag the flag associated with the vehicle
+     * @param withWind indicates whether the vehicle operates with wind
+     * @param fuel the average fuel consumption of the vehicle
+     * @param life the average life expectancy of the vehicle
+     * @param img the image representing the amphibious vehicle
      */
     public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life, ImageIcon img) {
         super(model, maxPassengers, maxSpeed,img);
@@ -97,14 +102,18 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
         return withWind == that.withWind && wheels == that.wheels && Float.compare(that.fuel, fuel) == 0 && Float.compare(that.life, life) == 0 && flag.equals(that.flag) && roadType.equals(that.roadType);
     }
 
+    /**
+     *  toString method to represent a Amphibious object.
+     * @return a string representation of the Amphibious object.
+     */
     @Override
     public String toString() {
         String wind = withWind? " with": " without";
-        return this.getClass().getSimpleName() + ": " + "<br>" + super.toString() +
-                "<br>" + " Under " + flag + " flag, " + wind + " the wind." +
-                "<br>" + " It has " + wheels + " wheels." +
-                "<br>" + "Can move on " + roadType +
-                "<br>" + " The average fuel is: " + fuel +
-                "<br>" + " The average life is: " + life + ".";
+        return this.getClass().getSimpleName() + ": " + super.toString() +
+                " Under " + flag + " flag, " + wind + " the wind." +
+                " It has " + wheels + " wheels." +
+                "Can move on " + roadType +
+                " The average fuel is: " + fuel +
+                " The average life is: " + life + ".";
     }
 }
