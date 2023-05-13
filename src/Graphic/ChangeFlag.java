@@ -35,8 +35,7 @@ public class ChangeFlag extends JDialog implements ActionListener {
             Image im = imageIcon.getImage();
             Image scaledIm = im.getScaledInstance(100, 85, 4);
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
-            //ArrJButton[i].setBackground(new Color(212, 230, 253));
-            //ArrJButton[i].setPreferredSize(new Dimension(100,85));
+            ArrJButton[i].setPreferredSize(new Dimension(100,85));
         }
         ArrJButton[7] = new JButton("Return the menu");
         for (JButton jButton : ArrJButton) {

@@ -10,11 +10,13 @@ import java.awt.event.ActionListener;
 public class TestDrive extends JDialog implements ActionListener {
     private static Vehicle[] vehicles;
     private static JButton[] ArrJButton;
+    private static JButton returnToMenu = new JButton("Return the menu");
     private int index;
     private int km;
 
     /**
      * Creates a dialog window for test driving vehicles.
+     *
      * @param window  The parent JFrame window.
      * @param vehicle The array of available vehicles.
      */
@@ -23,24 +25,27 @@ public class TestDrive extends JDialog implements ActionListener {
         vehicles = vehicle;
         this.setBounds(0, 30, 600, 730);
         this.setLocationRelativeTo(null);//put the windows in the center
-        JPanel testDrivePanel = new JPanel(new GridLayout(vehicle.length, 1));
-        testDrivePanel.setBounds(15, 0, 600, 500);
+        JPanel testDrivePanel = new JPanel();
+        this.setLayout(null);
+        testDrivePanel.setBounds(0, 30, 600, 500);
         ArrJButton = new JButton[vehicle.length + 1];
         for (int i = 0; i < vehicles.length; i++) {
             ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
             Image im = imageIcon.getImage();
-            Image scaledIm = im.getScaledInstance(100, 85, 4);
+            Image scaledIm = im.getScaledInstance(120, 100, 4);
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
-            //ArrJButton[i].setBackground(new Color(212, 230, 253));
-            //ArrJButton[i].setPreferredSize(new Dimension(100,85));
+            ArrJButton[i].setPreferredSize(new Dimension(120, 100));
         }
-        ArrJButton[vehicle.length] = new JButton("Return the menu");
-        for (int i = 0; i < ArrJButton.length; i++) {
+
+        for (int i = 0; i < ArrJButton.length - 1; i++) {
             testDrivePanel.add(ArrJButton[i]);
             ArrJButton[i].addActionListener(this);
 
         }
-
+        returnToMenu.addActionListener(this);
+        returnToMenu.setSize(150, 30);
+        returnToMenu.setBounds(220, 600, returnToMenu.getWidth(), returnToMenu.getHeight());
+        this.add(returnToMenu);
         this.add(testDrivePanel);
         this.setVisible(true);
     }
@@ -61,6 +66,7 @@ public class TestDrive extends JDialog implements ActionListener {
 
     /**
      * Handles the action events triggered by buttons.
+     *
      * @param e The action event object.
      */
     @Override
@@ -68,15 +74,24 @@ public class TestDrive extends JDialog implements ActionListener {
         index = -1;
         for (int i = 0; i < ArrJButton.length - 1; i++) {
             if (e.getSource() == ArrJButton[i]) {
-                index = i;
-                km = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter the KM of your vehicle: "));
-                this.setVisible(false);
+                boolean validInput = false;
+                while (!validInput) {
+                    String input = JOptionPane.showInputDialog(this, "Enter the KM of your vehicle: ");
+                    try {
+                        km = Integer.parseInt(input);
+                        validInput = true;
+                        index = i;
+                        this.setVisible(false);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "Invalid input! Please enter a valid integer for KM.");
+                    }
+                }
             }
-        }
-        if (e.getSource() == ArrJButton[ArrJButton.length - 1]) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) {
-                this.setVisible(false);
+            if (e.getSource() == returnToMenu) {
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    this.setVisible(false);
+                }
             }
         }
     }

@@ -241,7 +241,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == ArrJButton[2]) {
             TestDrive testDrive = new TestDrive(this, vehicles);
             int j = testDrive.getIndex();
-            if (j > -1 && j < vehicles.length - 1) {
+            if (j > -1 && j < vehicles.length) {
                 int k = testDrive.getKm();
                 vehicles = testDrive(vehicles, j, k);
             }
@@ -250,7 +250,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             ChangeFlag changeFlag = new ChangeFlag(this, vehicles);
             int k = changeFlag.getIndex();
             String[] img = {"Israel", "USA", "Germany", "Somalia", "Italy", "Pirath", "Greece"};
-            if (k > -1 && k < vehicles.length - 1) {
+            if (k > -1 && k < ArrJButton.length) {
                 for (Vehicle vehicle : vehicles) {
                     if (vehicle instanceof IMarine) {
                         ((IMarine) vehicle).setFlag(img[k]);
