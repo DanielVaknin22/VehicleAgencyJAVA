@@ -87,11 +87,11 @@ public class TestDrive extends JDialog implements ActionListener {
                     }
                 }
             }
-            if (e.getSource() == returnToMenu) {
-                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
-                if (option == JOptionPane.YES_OPTION) {
-                    this.setVisible(false);
-                }
+        }
+        if (e.getSource() == returnToMenu) {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                this.setVisible(false);
             }
         }
     }
