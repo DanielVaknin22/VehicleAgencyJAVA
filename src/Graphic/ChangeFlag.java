@@ -1,30 +1,31 @@
 package Graphic;
 
+import vehicle.IMarine;
 import vehicle.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
- * Represents a dialog for changing the flag of a vehicle.
+ * Represents a frame for changing the flag of a vehicle.
  */
-public class ChangeFlag extends JDialog implements ActionListener {
+public class ChangeFlag extends JFrame implements ActionListener {
     private static Vehicle[] vehicles;
     private static JButton[] ArrJButton = new JButton[8];
     private int index;
 
     /**
-     * Constructs a new ChangeFlag dialog instance.
-     * @param window  The parent frame for the dialog.
+     * Constructs a new ChangeFlag frame instance.
      * @param vehicle An array of vehicles to change the flag for.
      */
-    public ChangeFlag(JFrame window, Vehicle[] vehicle) {
-        super(window, "Change Flag", true);
-        vehicles = vehicle;
+    public ChangeFlag(ArrayList<Vehicle> vehicles) {
+        //vehicles = vehicle;
+        this.setTitle("Change Flag");
         this.setBounds(0, 30, 600, 730);
-        this.setLocationRelativeTo(null);//put the windows in the center
+        this.setLocationRelativeTo(null);//put the window in the center
         JPanel ChangeFlagPanel = new JPanel(new GridLayout(ArrJButton.length, 1));
         ChangeFlagPanel.setBounds(15, 0, 600, 500);
 
@@ -37,29 +38,31 @@ public class ChangeFlag extends JDialog implements ActionListener {
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
             ArrJButton[i].setPreferredSize(new Dimension(100,85));
         }
-        ArrJButton[7] = new JButton("Return the menu");
+        ArrJButton[7] = new JButton("Return to Menu");
         for (JButton jButton : ArrJButton) {
             ChangeFlagPanel.add(jButton);
             jButton.addActionListener(this);
         }
 
         this.add(ChangeFlagPanel);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this window
         this.setVisible(true);
     }
 
     /**
      * @return The index of the selected flag.
      */
-    public int getIndex() {
+    public int getIndex(ArrayList<Vehicle> vehicles) {
         return index;
     }
 
     /**
-     * Handles the action events from the buttons in the dialog.
+     * Handles the action events from the buttons in the frame.
      * @param e The ActionEvent object.
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        String[] flags = {"Israel", "USA", "Germany", "Somalia", "Italy", "Pirate", "Greece"};
         index = -1;
         for (int i = 0; i < ArrJButton.length - 1; i++) {
             if (e.getSource() == ArrJButton[i]) {
@@ -70,13 +73,16 @@ public class ChangeFlag extends JDialog implements ActionListener {
                 }
             }
         }
+        for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
+            if (MenuFrame.vehicles.get(i) instanceof IMarine) {
+                ((IMarine) MenuFrame.vehicles.get(i)).setFlag(flags[index]);
+            }
+        }
         if (e.getSource() == ArrJButton[7]) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to the menu?", "message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 this.setVisible(false);
             }
         }
     }
 }
-
-

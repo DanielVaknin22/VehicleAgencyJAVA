@@ -5,22 +5,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import vehicle.Vehicle;
+import java.util.ArrayList;
 
 /**
  * Represents a dialog window for creating a vehicle.
  */
-public class CreateVehicle extends JDialog implements ActionListener {
-    private static JButton[] ArrJButton = new JButton[8];
-    private static Vehicle[] vehicles;
+public class CreateVehicle extends JFrame implements ActionListener {
+    private static JButton[] ArrJButton = new JButton[10];
+    private MenuFrame mainWindow;
 
     /**
      * Constructs a CreateVehicle dialog window.
      * @param window the parent JFrame window
      * @param vehicle an array of Vehicle objects
      */
-    public CreateVehicle(JFrame window, Vehicle[] vehicle) {
-        super(window, "Create Vehicle", true);
-        vehicles = vehicle;
+    public CreateVehicle(MenuFrame windows, ArrayList<Vehicle> vehicles) {
+        super("Create Vehicle");
+        //this.vehicles = vehicle;
+        //vehicles = vehicle;
+        mainWindow = windows;
         JPanel createPanel = new JPanel();
         createPanel.setLayout(null);
         this.InitButtons();
@@ -44,22 +49,26 @@ public class CreateVehicle extends JDialog implements ActionListener {
         this.setBounds(0, 30, 600, 730);
         this.setLocationRelativeTo(null);
         this.SetImageAndPlaceText();
-        this.add(createPanel);
+        add(createPanel);
         this.setVisible(true);
     }
 
-    /**
-     * @return the array of Vehicle objects
-     */
-    public Vehicle[] getVehicles(){
-        return vehicles;
+    public ArrayList<Vehicle> getVehicles() {
+        return new ArrayList<>(MenuFrame.vehicles);
+    }
+
+    public void addVehicle(Vehicle newVehicle) {
+        if (newVehicle != null) {
+            MenuFrame.vehicles.add(newVehicle);
+            dispose(); // Close the CreateVehicle frame
+        }
     }
 
     /**
      * Initializes the buttons for vehicle types.
      */
     public void InitButtons() {
-        String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "Menu"};
+        String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "ElectricBicycle", "HybridPlane", "Menu"};
         int x = 85, y = 100;
 
         for(int i = 0; i < ArrJButton.length; ++i) {
@@ -78,7 +87,7 @@ public class CreateVehicle extends JDialog implements ActionListener {
      * Sets images and places text for the buttons.
      */
     public void SetImageAndPlaceText() {
-        String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\GameIcon.png", "Pictures\\AmphibiousIcon.png", "Pictures\\BicycleIcon.png", "Pictures\\CruiseShipIcon.png", "Pictures\\MenuIcon.png"};
+        String[] sourceImg = new String[]{"Pictures\\JeepIcon.png", "Pictures\\FrigateIcon.png", "Pictures\\SpyIcon.png", "Pictures\\GameIcon.png", "Pictures\\AmphibiousIcon.png", "Pictures\\BicycleIcon.png", "Pictures\\CruiseShipIcon.png", "Pictures\\ElectricBicycleIcon.png", "Pictures\\HybridPlaneIcon.png", "Pictures\\MenuIcon.png"};
         for(int i = 0; i < ArrJButton.length; ++i) {
             ImageIcon icon = new ImageIcon(sourceImg[i]);
             Image im = icon.getImage();
@@ -88,7 +97,6 @@ public class CreateVehicle extends JDialog implements ActionListener {
             ArrJButton[i].setHorizontalTextPosition(0);
             ArrJButton[i].setVerticalTextPosition(1);
         }
-
     }
 
     /**
@@ -625,25 +633,256 @@ public class CreateVehicle extends JDialog implements ActionListener {
     }
 
     /**
+     * Creates a ElectricBicycle object based on user input.
+     * @return The created ElectricBicycle object or null if the user cancels the operation.
+     */
+    private ElectricBicycle createElectricBicycle() {
+        String[] color = new String[]{"Gray", "Red", "White"};
+        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the ElectricBicycle: ", "color", 3, (Icon)null, color, color[0]);
+        String model;
+        while (true) {
+            model = JOptionPane.showInputDialog(this, "Enter Model: ");
+            if (model == null || model.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Model.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else if (!model.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(this, "Invalid input. Model should only contain letters.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break; // Break out of the loop if a valid value is entered
+            }
+        }
+        int maxPassengers;
+        while (true) {
+            String maxPassengersStr = JOptionPane.showInputDialog(this, "Enter Max Passengers: ");
+            if (maxPassengersStr == null || maxPassengersStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Max Passengers.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    maxPassengers = Integer.parseInt(maxPassengersStr);
+                    break; // Break out of the loop if a valid value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Please enter a valid integer for Max Passengers.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        int maxSpeed;
+        while (true) {
+            String maxSpeedStr = JOptionPane.showInputDialog(this, "Enter Max Speed: ");
+            if (maxSpeedStr == null || maxSpeedStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Max Speed.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    maxSpeed = Integer.parseInt(maxSpeedStr);
+                    break; // Break out of the loop if a valid integer value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Max Speed should be an integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        String roadType;
+        while (true) {
+            roadType = JOptionPane.showInputDialog(this, "Enter roadType: ");
+            if (roadType == null || roadType.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for roadType.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else if (!roadType.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(this, "Invalid input. roadType should only contain letters.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break; // Break out of the loop if a valid value is entered
+            }
+        }
+        float avLife;
+        while (true) {
+            String avLifeStr = JOptionPane.showInputDialog(this, "Enter Average Life: ");
+            if (avLifeStr == null || avLifeStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Average Life.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    avLife = Float.parseFloat(avLifeStr);
+                    break; // Break out of the loop if a valid float value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Average Life should be a floating-point number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        return switch (option) {
+            case "Gray" ->
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle1.png"));
+            case "Red" ->
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle2.png"));
+            case "white" ->
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle3.png"));
+            default -> null;
+        };
+    }
+    /**
+     * Creates a HybridPlane object based on user input.
+     * @return The created HybridPlane object or null if the user cancels the operation.
+     */
+    private HybridPlane createHybridPlane() {
+        String[] color = new String[]{"White", "Red"};
+        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the HybridPlane: ", "color", 3, (Icon)null, color, color[0]);
+        String model;
+        while (true) {
+            model = JOptionPane.showInputDialog(this, "Enter Model: ");
+            if (model == null || model.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Model.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else if (!model.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(this, "Invalid input. Model should only contain letters.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break; // Break out of the loop if a valid value is entered
+            }
+        }
+        int maxPassengers;
+        while (true) {
+            String maxPassengersStr = JOptionPane.showInputDialog(this, "Enter Max Passengers: ");
+            if (maxPassengersStr == null || maxPassengersStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Max Passengers.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    maxPassengers = Integer.parseInt(maxPassengersStr);
+                    break; // Break out of the loop if a valid value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Please enter a valid integer for Max Passengers.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        int maxSpeed;
+        while (true) {
+            String maxSpeedStr = JOptionPane.showInputDialog(this, "Enter Max Speed: ");
+            if (maxSpeedStr == null || maxSpeedStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Max Speed.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    maxSpeed = Integer.parseInt(maxSpeedStr);
+                    break; // Break out of the loop if a valid integer value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Max Speed should be an integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        int wheels;
+        while (true) {
+            String wheelsStr = JOptionPane.showInputDialog(this, "Enter Wheels: ");
+            if (wheelsStr == null || wheelsStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Wheels.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    wheels = Integer.parseInt(wheelsStr);
+                    break; // Break out of the loop if a valid integer value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Wheels should be an integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        String flag;
+        while (true) {
+            flag = JOptionPane.showInputDialog(this, "Enter Flag: ");
+            if (flag == null || flag.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Flag.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else if (!flag.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(this, "Invalid input. Flag should only contain letters.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break; // Break out of the loop if a valid value is entered
+            }
+        }
+        boolean witheWind = this.windDirection();
+        float avFuel;
+        while (true) {
+            String avFuelStr = JOptionPane.showInputDialog(this, "Enter Average Fuel: ");
+            if (avFuelStr == null || avFuelStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Average Fuel.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    avFuel = Float.parseFloat(avFuelStr);
+                    break; // Break out of the loop if a valid float value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Average Fuel should be a floating-point number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        float avLife;
+        while (true) {
+            String avLifeStr = JOptionPane.showInputDialog(this, "Enter Average Life ");
+            if (avLifeStr == null || avLifeStr.isEmpty()) {
+                int optionResult = JOptionPane.showConfirmDialog(this, "Please enter a value for Average Life.", "Missing Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (optionResult == JOptionPane.CANCEL_OPTION) {
+                    return null; // User clicked cancel, exit method
+                }
+            } else {
+                try {
+                    avLife = Float.parseFloat(avLifeStr);
+                    break; // Break out of the loop if a valid float value is entered
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Invalid input. Average Life should be a floating-point number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        return switch (option) {
+            case "White" ->
+                    new HybridPlane(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\HybridPlane1.png"));
+            case "Red" ->
+                    new HybridPlane(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\HybridPlane2.png"));
+            default -> null;
+        };
+    }
+
+
+    /**
      * Adds a new vehicle to the existing array of vehicles.
      * @param vehicle The existing array of vehicles.
      * @param tmpVehicle The new vehicle to be added.
      * @return The updated array of vehicles.
      */
-    public static Vehicle[] addVehicle(Vehicle[] vehicle, Vehicle tmpVehicle) {
-        Vehicle[] newVehicle;
-        if (vehicle != null) {
-            newVehicle = new Vehicle[vehicle.length + 1];
-
-            System.arraycopy(vehicle, 0, newVehicle, 0, vehicle.length);
-
-            newVehicle[vehicle.length] = tmpVehicle;
-        } else {
-            newVehicle = new Vehicle[1];
-            newVehicle[0] = tmpVehicle;
-        }
-        return newVehicle;
-    }
+//    public static Vehicle[] addVehicle(Vehicle[] vehicle, Vehicle tmpVehicle) {
+//        Vehicle[] newVehicle;
+//        if (vehicle != null) {
+//            newVehicle = new Vehicle[vehicle.length + 1];
+//
+//            System.arraycopy(vehicle, 0, newVehicle, 0, vehicle.length);
+//
+//            newVehicle[vehicle.length] = tmpVehicle;
+//            System.out.println("new2: " + Arrays.toString(newVehicle));
+//            System.out.println("Added vehicle: " + tmpVehicle);
+//        } else {
+//            newVehicle = new Vehicle[1];
+//            newVehicle[0] = tmpVehicle;
+//            System.out.println("new: " + Arrays.toString(newVehicle));
+//            System.out.println("Added vehicle: " + tmpVehicle);
+//        }
+//        return newVehicle;
+//    }
 
     /**
      * Handles the action events triggered by buttons.
@@ -653,58 +892,79 @@ public class CreateVehicle extends JDialog implements ActionListener {
         if (e.getSource() == ArrJButton[0]) {
             Jeep jeep = this.createJeep();
             if (jeep != null) {
-                vehicles = addVehicle(vehicles, jeep);
+                //vehicles = addVehicle(vehicles, jeep);
+                addVehicle(jeep);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[1]) {
             Frigate frigate = this.createFrigate();
             if (frigate != null) {
-                vehicles = addVehicle(vehicles, frigate);
+                addVehicle(frigate);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[2]) {
             Spy spy = this.createSpy();
             if (spy != null) {
-                vehicles = addVehicle(vehicles, spy);
+                addVehicle(spy);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[3]) {
             Game game = this.createGame();
             if (game != null) {
-                vehicles = addVehicle(vehicles, game);
+                addVehicle(game);
+                System.out.println("ve:");
+                for (Vehicle vehicle : MenuFrame.vehicles) {
+                    System.out.println(vehicle);
+                }
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[4]) {
             Amphibious amphibious = this.createAmphibious();
             if (amphibious != null) {
-                vehicles = addVehicle(vehicles, amphibious);
+                addVehicle(amphibious);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[5]) {
             Bicycle bicycle = this.createBicycle();
             if (bicycle != null) {
-                vehicles = addVehicle(vehicles, bicycle);
+                addVehicle(bicycle);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[6]) {
             CruiseShip cruiseShip = this.createCruiseShip();
             if (cruiseShip != null) {
-                vehicles = addVehicle(vehicles, cruiseShip);
+                addVehicle(cruiseShip);
             } else {
                 JOptionPane.showMessageDialog((Component)null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
             }
         } else if (e.getSource() == ArrJButton[7]) {
-            if (vehicles != null) {
+            ElectricBicycle electricBicycle = this.createElectricBicycle();
+            if (electricBicycle != null) {
+                addVehicle(electricBicycle);
+            } else {
+                JOptionPane.showMessageDialog((Component) null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
+            }
+        } else if (e.getSource() == ArrJButton[8]) {
+            HybridPlane hybridPlane = this.createHybridPlane();
+            if (hybridPlane != null) {
+                addVehicle(hybridPlane);;
+            } else {
+                JOptionPane.showMessageDialog((Component) null, "The details of the vehicle are incorrect, Try Again!", "Error", 0);
+            }
+        } else if (e.getSource() == ArrJButton[9]) {
+            if (MenuFrame.vehicles != null) {
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
             }
         }
+        mainWindow.initImagePanel();
+        this.setVisible(false);
     }
 }

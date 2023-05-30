@@ -6,71 +6,59 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class BuyVehicle extends JDialog implements ActionListener {
-    private static Vehicle[] vehicles;
-    private static JButton[] ArrJButton;
-    private static JButton returnToMenu = new JButton("Return the menu");
-
+public class BuyVehicle extends JFrame implements ActionListener {
+    private ArrayList<JButton> vehicleButtons;
+    private JButton returnToMenu = new JButton("Return to Menu");
     private int index;
+    private JPanel buyPanel = new JPanel();
 
     /**
-     * Creates a dialog window for buying vehicles.
-     * @param window  The parent JFrame window.
-     * @param vehicle The array of available vehicles.
+     * Creates a frame for buying vehicles.
+     * @param vehicles The array of available vehicles.
      */
-    public BuyVehicle(JFrame window, Vehicle[] vehicle) {
-        super(window, "Buy Vehicle", true);
-        vehicles = vehicle;
-        this.setBounds(0, 30, 730, 730);
-        this.setLocationRelativeTo(null);//put the windows in the center
-        JPanel buyPanel = new JPanel();
-        this.setLayout(null);
+    public BuyVehicle(ArrayList<Vehicle> vehicles) {
+        System.out.println("111:");
+        for (Vehicle vehicle : vehicles) {
+            System.out.println(vehicle);
+        }
+        setTitle("Buy Vehicle");
+        setBounds(0, 30, 730, 730);
+        setLocationRelativeTo(null); // Center the window
+        setLayout(null);
+
+        //buyPanel.setLayout(null);
         buyPanel.setBounds(0, 30, 600, 500);
-        ArrJButton = new JButton[vehicle.length];
+        add(buyPanel);
 
-        for (int i = 0; i < vehicles.length; i++) {
-            ImageIcon imageIcon = new ImageIcon(vehicles[i].getImg().getImage());
+        vehicleButtons = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            ImageIcon imageIcon = new ImageIcon(vehicle.getImg().getImage());
             Image im = imageIcon.getImage();
-            Image scaledIm = im.getScaledInstance(120, 100, 4);
-            ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
-            ArrJButton[i].setPreferredSize(new Dimension(120,100));
+            Image scaledIm = im.getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+            JButton button = new JButton(new ImageIcon(scaledIm));
+            button.setPreferredSize(new Dimension(120, 100));
+            button.addActionListener(this);
+            buyPanel.add(button);
+            vehicleButtons.add(button);
         }
-        for (JButton jButton : ArrJButton) {
-            buyPanel.add(jButton);
-            jButton.addActionListener(this);
 
-        }
         returnToMenu.addActionListener(this);
-        returnToMenu.setSize(150,30);
-        returnToMenu.setBounds(270,600,returnToMenu.getWidth(),returnToMenu.getHeight());
-        this.add(returnToMenu);
-        this.add(buyPanel);
-        this.setVisible(true);
-    }
+        returnToMenu.setSize(150, 30);
+        returnToMenu.setBounds(270, 600, returnToMenu.getWidth(), returnToMenu.getHeight());
 
-    /**
-     * Removes a button from the array of buttons.
-     * @param buttons The array of buttons.
-     * @param i The index of the button to be removed.
-     * @return The updated array of buttons.
-     */
-    private static JButton[] removeButton(JButton[] buttons, int i) {
-        JButton[] newButtons = new JButton[buttons.length - 1];
-        int k = 0;
-        for (int j = 0; j < buttons.length; j++) {
-            if (j != i){
-                newButtons[k] = buttons[j];
-                k++;
-            }
-        }
-        return newButtons;
+        add(returnToMenu);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this window
+
+        setVisible(true);
     }
 
     /**
      * @return The index of the selected vehicle.
      */
-    public int getIndex(){
+    public int getIndex() {
         return this.index;
     }
 
@@ -80,22 +68,24 @@ public class BuyVehicle extends JDialog implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        index = -1;
-        for (int i = 0; i < ArrJButton.length; i++) {
-            if(e.getSource() == ArrJButton[i]){
-                int option = JOptionPane.showConfirmDialog(null,"Are you sure you want to buy this vehicle?", "message", JOptionPane.YES_NO_OPTION);
-                if(option == JOptionPane.YES_OPTION){
+        for (int i = 0; i < vehicleButtons.size(); i++) {
+            if (e.getSource() == vehicleButtons.get(i)) {
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy this vehicle?", "Message", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
                     index = i;
-                    ArrJButton = removeButton(ArrJButton,i);
-                    this.setVisible(false);
+                    JButton removedButton = vehicleButtons.remove(i); // Remove the corresponding button from the vehicleButtons list
+                    buyPanel.remove(removedButton); // Remove the button from the buyPanel
+                    repaint();
+                    break;
                 }
             }
         }
         if (e.getSource() == returnToMenu) {
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return the menu?", "message", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to the menu?", "Message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                this.setVisible(false);
+                dispose(); // Close the frame
             }
         }
     }
 }
+
