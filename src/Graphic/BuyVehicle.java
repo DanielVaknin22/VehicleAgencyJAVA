@@ -30,7 +30,7 @@ public class BuyVehicle extends JFrame implements ActionListener {
         setLayout(null);
 
         //buyPanel.setLayout(null);
-        bPanel = new buyPanel();
+        bPanel = new buyPanel(1);
         bPanel.setBounds(0, 30, 600, 500);
         add(bPanel);
 

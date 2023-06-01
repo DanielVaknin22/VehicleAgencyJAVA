@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import vehicle.Vehicle;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Represents a dialog window for creating a vehicle.
@@ -950,6 +951,25 @@ public class CreateVehicle extends JFrame implements ActionListener {
 //        return newVehicle;
 //    }
 
+    public void update() {
+        Thread t = new Thread(() -> {
+            try {
+                synchronized (MenuFrame.vehicles) {
+                    Random rand = new Random();
+                    int randomNum;
+                    randomNum = 3000 + rand.nextInt((10000 - 5000) + 1);
+                    Loading loading = new Loading("Database is loading");
+                    Thread.sleep(randomNum);
+                    Thread.sleep(700);
+                    loading.terminate();
+                }
+            } catch (InterruptedException e) {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        });
+        t.start();
+    }
+
     /**
      * Handles the action events triggered by buttons.
      * @param e The action event object.
@@ -1031,6 +1051,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
             }
         }
         //mainWindow.initImagePanel();
+        update();
         this.setVisible(false);
     }
 }

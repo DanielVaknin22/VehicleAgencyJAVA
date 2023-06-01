@@ -90,6 +90,7 @@ public abstract class Vehicle{
     @Override
     public String toString() {
         return "Model: " + model +
+                "test: " + testDrive +
                 "\n traveled: " + km +
                 ", Max speed of " + maxSpeed +
                 ", can carry max of " + maxPassengers + " people.";

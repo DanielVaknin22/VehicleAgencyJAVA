@@ -176,6 +176,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             if (option == JOptionPane.YES_OPTION) {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.setKm(0);
+                    update();
                 }
             }
         } else if (e.getSource() == buttons[5]) {
