@@ -11,6 +11,7 @@ public abstract class Vehicle{
     protected int maxPassengers;
     protected int maxSpeed;
     protected ImageIcon img;
+    protected int inBuyProcess;
     protected int testDrive;
     /**
      * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
@@ -21,11 +22,13 @@ public abstract class Vehicle{
     public Vehicle(String model, int maxPassengers, int maxSpeed, ImageIcon img) {
         this.model = model;
         this.km = 0;
+        this.inBuyProcess = 0;
         this.testDrive = 0;
         this.maxPassengers = maxPassengers;
         this.maxSpeed = maxSpeed;
         this.img = img;
     }
+
 
     public ImageIcon getImg(){
         return this.img;
@@ -41,6 +44,17 @@ public abstract class Vehicle{
 
     public boolean getTest(){
         return this.testDrive == 1;
+    }
+    public void startBuying(){
+        this.inBuyProcess = 1;
+    }
+
+    public void endBuying(){
+        this.inBuyProcess = 0;
+    }
+
+    public boolean getBuying(){
+        return this.inBuyProcess == 1;
     }
 
     /**

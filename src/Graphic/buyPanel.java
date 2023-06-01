@@ -1,5 +1,7 @@
 package Graphic;
 
+import vehicle.IAir;
+import vehicle.ILand;
 import vehicle.IMarine;
 import vehicle.Vehicle;
 
@@ -82,19 +84,33 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         t.start();
     }
 
-//    private boolean checkBeforeTest(Vehicle vehicle){
+//    private boolean checkBeforBuy(Vehicle vehicle){
 //        for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
-//            if (MenuFrame.vehicles.get(i) instanceof IMarine) {
-//                ((IMarine) MenuFrame.vehicles.get(i)).setFlag(flags[index]);
-//            }
-//        }
+//            if (MenuFrame.vehicles.get(i).getTest()
 //    }
+
+    private boolean checkBeforeTest(Vehicle vehicle){
+        for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
+            if (MenuFrame.vehicles.get(i).getTest() && ((MenuFrame.vehicles.get(i) instanceof IMarine && vehicle instanceof IMarine)
+                    || (MenuFrame.vehicles.get(i) instanceof IAir && vehicle instanceof IAir) ||
+                    (MenuFrame.vehicles.get(i) instanceof ILand && vehicle instanceof ILand))) {
+                JOptionPane.showMessageDialog(null, "This kind of vehicle is on test drive.");
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (actionType == 1) {
             for (int i = 0; i < vehicleButtons.size(); i++) {
                 if (e.getSource() == vehicleButtons.get(i)) {
+                    if (MenuFrame.vehicles.get(i).getTest()) {
+                        JOptionPane.showMessageDialog(null, "The vehicle is on test drive.");
+                        break;
+                    }
+                    MenuFrame.vehicles.get(i).startBuying();
                     try {
                         Random rand = new Random();
                         int randomNum;
@@ -106,10 +122,7 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                     int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy this vehicle?", "Message", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
                         //update();
-                        if (MenuFrame.vehicles.get(i).getTest()) {
-                            JOptionPane.showMessageDialog(null, "The vehicle is on test drive.");
-                            break;
-                        }
+                        MenuFrame.vehicles.get(i).endBuying();
                         JButton removedButton = vehicleButtons.remove(i); // Remove the corresponding button from the vehicleButtons list
                         this.remove(removedButton); // Remove the button from the buyPanel
                         MenuFrame.vehicles.remove(i);
@@ -118,11 +131,19 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                         repaint();
                         break;
                     }
+                    MenuFrame.vehicles.get(i).endBuying();
                 }
             }
         } else if (actionType == 2) {
             for (int i = 0; i < vehicleButtons.size(); i++) {
                 if (e.getSource() == vehicleButtons.get(i)) {
+                    if(MenuFrame.vehicles.get(i).getBuying()){
+                        JOptionPane.showMessageDialog(this, "This vehicle is in buying process.");
+                        break;
+                    }
+                    if (checkBeforeTest(MenuFrame.vehicles.get(i))){
+                        break;
+                    }
                     boolean validInput = false;
                     while (!validInput) {
                         String input = JOptionPane.showInputDialog(this, "Enter the KM of your vehicle: ");
