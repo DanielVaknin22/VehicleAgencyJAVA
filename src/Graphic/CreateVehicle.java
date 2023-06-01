@@ -1030,7 +1030,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "You can not return to main until you add at least one vehicle!", "Error", 0);
             }
         }
-        mainWindow.initImagePanel();
+        //mainWindow.initImagePanel();
         this.setVisible(false);
     }
 }

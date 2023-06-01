@@ -19,6 +19,7 @@ import java.util.Random;
 public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     private JButton[] buttons;
     private JPanel imagePanel;
+    private paintPanel pPanel;
     static ArrayList<Vehicle> vehicles = new ArrayList<>(); // Initialize the vehicles array with an empty array
     private Popup popup;
     private CreateVehicle createVehicle;
@@ -53,10 +54,12 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             buttons[i].addActionListener(this);
             menuPanel.add(buttons[i]);
         }
-        imagePanel = new JPanel();
-        imagePanel.setBounds(0, 300, 600, 700);
-        initImagePanel();
-        add(imagePanel);
+//        imagePanel = new JPanel();
+//        imagePanel.setBounds(0, 300, 600, 700);
+        pPanel = new paintPanel(this);
+        pPanel.setBounds(0, 300, 600, 700);
+        //initImagePanel();
+        add(pPanel);
         add(menuPanel);
         inventory.addActionListener(this);
         this.add(inventory, BorderLayout.SOUTH);
@@ -67,27 +70,27 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     /**
      * Initializes the image panel with the vehicle buttons.
      */
-    public void initImagePanel() {
-        imagePanel.removeAll();
-        int x = 15, y = 400;
-        for (int i = 0; i < vehicles.size(); i++) {
-            ImageIcon imageIcon = new ImageIcon(vehicles.get(i).getImg().getImage());
-            Image image = imageIcon.getImage();
-            Image scaledImage = image.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
-            JButton imageButton = new JButton(new ImageIcon(scaledImage));
-            imageButton.setPreferredSize(new Dimension(150, 120));
-            if (i == vehicles.size() / 2) {
-                y = 525;
-                x = 15;
-            }
-            imageButton.setBounds(x, y, 150, 120);
-            x += 155;
-            imageButton.addMouseListener(this);
-            imagePanel.add(imageButton);
-        }
-        imagePanel.revalidate();
-        imagePanel.repaint();
-    }
+//    public void initImagePanel() {
+//        imagePanel.removeAll();
+//        int x = 15, y = 400;
+//        for (int i = 0; i < vehicles.size(); i++) {
+//            ImageIcon imageIcon = new ImageIcon(vehicles.get(i).getImg().getImage());
+//            Image image = imageIcon.getImage();
+//            Image scaledImage = image.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
+//            JButton imageButton = new JButton(new ImageIcon(scaledImage));
+//            imageButton.setPreferredSize(new Dimension(150, 120));
+//            if (i == vehicles.size() / 2) {
+//                y = 525;
+//                x = 15;
+//            }
+//            imageButton.setBounds(x, y, 150, 120);
+//            x += 155;
+//            imageButton.addMouseListener(this);
+//            imagePanel.add(imageButton);
+//        }
+//        imagePanel.revalidate();
+//        imagePanel.repaint();
+//    }
 
     /**
      * Removes a vehicle from the array of vehicles.
@@ -146,7 +149,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == inventory) {
-            inventory inven = new inventory(vehicles);
+            inventory inven = new inventory(this, vehicles);
         }
         if (e.getSource() == buttons[0]) {
             if (vehicles.size() != 0) {
@@ -156,7 +159,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             System.out.println("create:");
             System.out.println(vehicles.size());
 
-            initImagePanel();
+            //initImagePanel();
         } else if (e.getSource() == buttons[1]) {
             System.out.println(vehicles.size());
             System.out.println("BUY:");
@@ -198,7 +201,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         for (int i = 0; i < vehicles.size(); i++) {
-            if (e.getSource() == imagePanel.getComponent(i)) {
+            if (e.getSource() == pPanel.getComponent(i)) {
                 JButton button = (JButton) e.getSource();
                 button.setToolTipText(vehicles.get(i).toString());
                 break;

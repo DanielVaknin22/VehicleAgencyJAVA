@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class inventory extends JFrame implements ActionListener {
-    private JPanel inventoryPanel = new JPanel();
+    private paintPanel inventoryPanel;
+    private MenuFrame mainWindow;
     private JButton returnToMenu = new JButton("Return to Menu");
 
-    public inventory(ArrayList<Vehicle> vehicles) {
+    public inventory(MenuFrame main, ArrayList<Vehicle> vehicles) {
+        mainWindow = main;
         setTitle("inventory");
         setBounds(0, 30, 730, 730);
         setLocationRelativeTo(null); // Center the window
         setLayout(null);
+        inventoryPanel = new paintPanel(mainWindow);
         inventoryPanel.setBounds(0, 30, 600, 500);
         add(inventoryPanel);
 

@@ -9,17 +9,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BuyVehicle extends JFrame implements ActionListener {
+public class BuyVehicle extends JFrame implements ActionListener, Runnable {
     private ArrayList<JButton> vehicleButtons;
     private JButton returnToMenu = new JButton("Return to Menu");
     private int index;
+    private int size;
     private MenuFrame mainWindow;
     private static Vehicle vehicleInBuy = null;
 
-    private JPanel buyPanel = new JPanel();
+    private JPanel buyPanel;
 
     /**
      * Creates a frame for buying vehicles.
+     *
      * @param vehicles The array of available vehicles.
      */
     public BuyVehicle(MenuFrame main, ArrayList<Vehicle> vehicles) {
@@ -34,6 +36,7 @@ public class BuyVehicle extends JFrame implements ActionListener {
         setLayout(null);
 
         //buyPanel.setLayout(null);
+        buyPanel = new JPanel();
         buyPanel.setBounds(0, 30, 600, 500);
         add(buyPanel);
 
@@ -48,7 +51,9 @@ public class BuyVehicle extends JFrame implements ActionListener {
             buyPanel.add(button);
             vehicleButtons.add(button);
         }
-
+        size = MenuFrame.vehicles.size();
+        Thread t2 = new Thread(this);
+        t2.start();
         returnToMenu.addActionListener(this);
         returnToMenu.setSize(150, 30);
         returnToMenu.setBounds(270, 600, returnToMenu.getWidth(), returnToMenu.getHeight());
@@ -90,6 +95,7 @@ public class BuyVehicle extends JFrame implements ActionListener {
 
     /**
      * Handles the action events triggered by buttons.
+     *
      * @param e The action event object.
      */
     @Override
@@ -103,7 +109,7 @@ public class BuyVehicle extends JFrame implements ActionListener {
                     JButton removedButton = vehicleButtons.remove(i); // Remove the corresponding button from the vehicleButtons list
                     buyPanel.remove(removedButton); // Remove the button from the buyPanel
                     MenuFrame.vehicles.remove(index);
-                    mainWindow.initImagePanel();
+                    //mainWindow.initImagePanel();
                     repaint();
                     break;
                 }
@@ -113,6 +119,32 @@ public class BuyVehicle extends JFrame implements ActionListener {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to the menu?", "Message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 dispose(); // Close the frame
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+
+        System.out.println("b1:" + size);
+        while (true) {
+            System.out.println("b2:" + MenuFrame.vehicles.size());
+            vehicleButtons = new ArrayList<>();
+            if (MenuFrame.vehicles.size() != size) {
+                buyPanel.removeAll();
+                size = MenuFrame.vehicles.size();
+                for (Vehicle vehicle : MenuFrame.vehicles) {
+                    ImageIcon imageIcon = new ImageIcon(vehicle.getImg().getImage());
+                    Image im = imageIcon.getImage();
+                    Image scaledIm = im.getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+                    JButton button = new JButton(new ImageIcon(scaledIm));
+                    button.setPreferredSize(new Dimension(120, 100));
+                    button.addActionListener(this);
+                    buyPanel.add(button);
+                    vehicleButtons.add(button);
+                }
+                this.revalidate();
+                this.repaint();
             }
         }
     }

@@ -90,7 +90,7 @@ public class TestDrive extends JFrame implements ActionListener {
                         km = Integer.parseInt(input);
                         validInput = true;
                         index = i;
-                        this.setVisible(false);
+                        //this.setVisible(false);
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(this, "Invalid input! Please enter a valid integer for KM.");
                     }
