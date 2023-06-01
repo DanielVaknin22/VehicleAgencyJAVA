@@ -30,7 +30,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
         createPanel.setBounds(15, 0, 600, 300);
         JLabel Choose = new JLabel("Choose type of car");
         Choose.setFont(new Font(Choose.getName(),Font.BOLD, 30));
-        Choose.setBounds(135, -20, 400, 150);
+        Choose.setBounds(140, -20, 400, 150);
         createPanel.add(Choose);
         for (JButton jButton : ArrJButton) {
             createPanel.add(jButton);
@@ -99,13 +99,13 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     public void InitButtons() {
         String[] nameArray = new String[]{"Jeep", "Frigate", "Spy", "Game", "Amphibious", "Bicycle", "CruiseShip", "ElectricBicycle", "HybridPlane", "Menu"};
-        int x = 85, y = 100;
+        int x = 20, y = 100;
 
         for(int i = 0; i < ArrJButton.length; ++i) {
             ArrJButton[i] = new JButton(nameArray[i]);
             if (i == ArrJButton.length / 2) {
                 y = 210;
-                x = 85;
+                x = 20;
             }
 
             ArrJButton[i].setBounds(x, y, 105, 100);

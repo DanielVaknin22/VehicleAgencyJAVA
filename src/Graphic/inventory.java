@@ -94,4 +94,3 @@ public class inventory extends JFrame implements ActionListener {
         }
     }
 }
-
