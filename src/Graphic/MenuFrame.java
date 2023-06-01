@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The MenuFrame class presents a GUI for the menu of a vehicle agency.
@@ -21,6 +22,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     static ArrayList<Vehicle> vehicles = new ArrayList<>(); // Initialize the vehicles array with an empty array
     private Popup popup;
     private CreateVehicle createVehicle;
+    private JButton inventory = new JButton("Inventory");
     /**
      * Constructs a new MenuFrame instance.
      */
@@ -56,6 +58,9 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
         initImagePanel();
         add(imagePanel);
         add(menuPanel);
+        inventory.addActionListener(this);
+        this.add(inventory, BorderLayout.SOUTH);
+        this.revalidate();
         setVisible(true);
     }
 
@@ -93,6 +98,46 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
     }
 
 
+    public void update(Vehicle vehicle) {
+        Thread t = new Thread(() -> {
+            try {
+                synchronized (vehicles) {
+                    Random rand = new Random();
+                    int randomNum;
+                    randomNum = 3000 + rand.nextInt((8000 - 3000) + 1);
+                    Loading loading = new Loading("Updating Database...");
+                    vehicles.add(vehicle);
+                    Thread.sleep(randomNum);
+                    loading.setText("Update Done!");
+                    Thread.sleep(700);
+                    loading.terminate();
+                }
+            } catch (InterruptedException e) {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        });
+        t.start();
+    }
+
+    public void update() {
+        Thread t = new Thread(() -> {
+            try {
+                synchronized (MenuFrame.vehicles) {
+                    Random rand = new Random();
+                    int randomNum;
+                    randomNum = 3000 + rand.nextInt((10000 - 5000) + 1);
+                    Loading loading = new Loading("Database is loading");
+                    Thread.sleep(randomNum);
+                    Thread.sleep(700);
+                    loading.terminate();
+                }
+            } catch (InterruptedException e) {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        });
+        t.start();
+    }
+
     /**
      * Handles the action events triggered by buttons.
      *
@@ -100,6 +145,9 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == inventory) {
+            inventory inven = new inventory(vehicles);
+        }
         if (e.getSource() == buttons[0]) {
             if (vehicles.size() != 0) {
                 System.out.println("po");
@@ -115,13 +163,7 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
             for (Vehicle vehicle : vehicles) {
                 System.out.println(vehicle);
             }
-            BuyVehicle buyVehicle = new BuyVehicle(vehicles);
-            int index = buyVehicle.getIndex();
-            if (index > -1 && index < vehicles.size()) {
-                removeVehicle(index);
-                System.out.println("Index:" + index);
-                initImagePanel();
-            }
+            BuyVehicle buyVehicle = new BuyVehicle(this, vehicles);
         } else if (e.getSource() == buttons[2]) {
             TestDrive testDrive = new TestDrive(vehicles);
         } else if (e.getSource() == buttons[3]) {

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Represents a frame for changing the flag of a vehicle.
@@ -19,6 +20,7 @@ public class ChangeFlag extends JFrame implements ActionListener {
 
     /**
      * Constructs a new ChangeFlag frame instance.
+     *
      * @param vehicle An array of vehicles to change the flag for.
      */
     public ChangeFlag(ArrayList<Vehicle> vehicles) {
@@ -36,7 +38,7 @@ public class ChangeFlag extends JFrame implements ActionListener {
             Image im = imageIcon.getImage();
             Image scaledIm = im.getScaledInstance(100, 85, 4);
             ArrJButton[i] = new JButton(new ImageIcon(scaledIm));
-            ArrJButton[i].setPreferredSize(new Dimension(100,85));
+            ArrJButton[i].setPreferredSize(new Dimension(100, 85));
         }
         ArrJButton[7] = new JButton("Return to Menu");
         for (JButton jButton : ArrJButton) {
@@ -58,6 +60,7 @@ public class ChangeFlag extends JFrame implements ActionListener {
 
     /**
      * Handles the action events from the buttons in the frame.
+     *
      * @param e The ActionEvent object.
      */
     @Override
@@ -73,11 +76,28 @@ public class ChangeFlag extends JFrame implements ActionListener {
                 }
             }
         }
-        for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
-            if (MenuFrame.vehicles.get(i) instanceof IMarine) {
-                ((IMarine) MenuFrame.vehicles.get(i)).setFlag(flags[index]);
+        Thread t = new Thread(() -> {
+            try {
+                synchronized (MenuFrame.vehicles) {
+                    Random rand = new Random();
+                    int randomNum;
+                    randomNum = 3000 + rand.nextInt((8000 - 3000) + 1);
+                    Loading loading = new Loading("Updating Database...");
+                    for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
+                        if (MenuFrame.vehicles.get(i) instanceof IMarine) {
+                            ((IMarine) MenuFrame.vehicles.get(i)).setFlag(flags[index]);
+                        }
+                    }
+                    Thread.sleep(randomNum);
+                    loading.setText("Update Done!");
+                    Thread.sleep(700);
+                    loading.terminate();
+                }
+            } catch (InterruptedException d) {
+                JOptionPane.showMessageDialog(null, "Error");
             }
-        }
+        });
+        t.start();
         if (e.getSource() == ArrJButton[7]) {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to the menu?", "message", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
@@ -86,3 +106,6 @@ public class ChangeFlag extends JFrame implements ActionListener {
         }
     }
 }
+
+
+

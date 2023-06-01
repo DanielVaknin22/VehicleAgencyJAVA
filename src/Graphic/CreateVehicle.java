@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import vehicle.Vehicle;
 import java.util.ArrayList;
@@ -16,11 +19,6 @@ public class CreateVehicle extends JFrame implements ActionListener {
     private static JButton[] ArrJButton = new JButton[10];
     private MenuFrame mainWindow;
 
-    /**
-     * Constructs a CreateVehicle dialog window.
-     * @param window the parent JFrame window
-     * @param vehicle an array of Vehicle objects
-     */
     public CreateVehicle(MenuFrame windows, ArrayList<Vehicle> vehicles) {
         super("Create Vehicle");
         //this.vehicles = vehicle;
@@ -55,6 +53,38 @@ public class CreateVehicle extends JFrame implements ActionListener {
 
     public ArrayList<Vehicle> getVehicles() {
         return new ArrayList<>(MenuFrame.vehicles);
+    }
+
+    private ImageIcon getImageFromUser() {
+        ImageIcon imageIcon = null;
+        JFileChooser fileChooser = new JFileChooser();
+        String[] button = {"Set by default", "Upload an image"};
+        int option = JOptionPane.showOptionDialog(this, "Select Your option please",
+                "Set the image for the vehicle", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,
+                null,button, button[0]);
+        if (option == 1 ) {
+            int result = fileChooser.showOpenDialog(this);
+            do {
+                if (result == JFileChooser.CANCEL_OPTION) {
+                    JOptionPane.showMessageDialog(this,
+                            "You must select an image file", "Select Image", JOptionPane.ERROR_MESSAGE);
+                    result = fileChooser.showOpenDialog(this);
+                }
+            } while (result == JFileChooser.CANCEL_OPTION);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                try {
+                    imageIcon = new ImageIcon(Files.readAllBytes(selectedFile.toPath()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (imageIcon != null) {
+                imageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(180, 170, Image.SCALE_DEFAULT));
+            }
+        }
+        if(imageIcon == null) JOptionPane.showMessageDialog(this, "The image will be setting by default");
+        return imageIcon;
     }
 
     public void addVehicle(Vehicle newVehicle) {
@@ -105,7 +135,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Jeep createJeep() {
         String[] color = new String[]{"Grey", "Red", "White", "Blue"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -176,7 +210,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
             case "Red" -> new Jeep(model, maxSpeed, avFuel, avLife, new ImageIcon("Pictures\\jeep2.png"));
             case "White" -> new Jeep(model, maxSpeed, avFuel, avLife, new ImageIcon("Pictures\\jeep3.png"));
             case "Blue" -> new Jeep(model, maxSpeed, avFuel, avLife, new ImageIcon("Pictures\\jeep4.png"));
-            default -> null;
+            default -> new Jeep(model, maxSpeed, avFuel, avLife, img);
         };
     }
 
@@ -186,7 +220,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Frigate createFrigate() {
         String[] color = new String[]{"Grey", "White", "Green"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Frigate: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Frigate: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -243,7 +281,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\Frigate1.png"));
             case "Green" ->
                     new Frigate(model, maxPassengers, maxSpeed, witheWind, new ImageIcon("Pictures\\Frigate3.png"));
-            default -> null;
+            default -> new Frigate(model, maxPassengers, maxSpeed, witheWind, img);
         };
     }
 
@@ -267,12 +305,17 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Game createGame() {
         String[] color = new String[]{"Blue", "Red", "Green", "Grey"};
-        return switch ((String) JOptionPane.showInputDialog(this, "Choose the color of the Game: ", "color", 3, (Icon) null, color, color[0])) {
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Game: ", "color", 3, (Icon)null, color, color[0]);
+        }
+        return switch (option) {
             case "Blue" -> new Game(new ImageIcon("Pictures\\Game1.png"));
             case "Red" -> new Game(new ImageIcon("Pictures\\Game2.png"));
             case "Green" -> new Game(new ImageIcon("Pictures\\Game3.png"));
             case "Grey" -> new Game(new ImageIcon("Pictures\\Game4.png"));
-            default -> null;
+            default -> new Game(img);
         };
     }
 
@@ -282,7 +325,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Spy createSpy() {
         String[] color = new String[]{"Black", "White"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Spy: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Spy: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String power;
         while (true) {
             power = JOptionPane.showInputDialog(this, "Enter Power: ");
@@ -300,7 +347,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
         return switch (option) {
             case "Black" -> new Spy(power, new ImageIcon("Pictures\\Spy1.png"));
             case "White" -> new Spy(power, new ImageIcon("Pictures\\Spy2.png"));
-            default -> null;
+            default -> new Spy(power, img);
         };
     }
 
@@ -310,7 +357,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Amphibious createAmphibious() {
         String[] color = new String[]{"Yellow", "Black", "Red", "Military"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -434,7 +485,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new Amphibious(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\amphibious3.png"));
             case "Military" ->
                     new Amphibious(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\amphibious4.png"));
-            default -> null;
+            default -> new Amphibious(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, img);
         };
     }
 
@@ -444,7 +495,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private Bicycle createBicycle() {
         String[] color = new String[]{"Red", "Blue", "Purple", "Black"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Bicycle: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Bicycle: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -516,7 +571,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle3.png"));
             case "Black" ->
                     new Bicycle(model, maxPassengers, maxSpeed, roadType, new ImageIcon("Pictures\\Bicycle4.png"));
-            default -> null;
+            default ->  new Bicycle(model, maxPassengers, maxSpeed, roadType, img);
         };
     }
 
@@ -526,7 +581,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private CruiseShip createCruiseShip() {
         String[] color = new String[]{"Blue", "White"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Cruise Ship: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Cruise Ship: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -628,7 +687,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\CruiseShip1.png"));
             case "White" ->
                     new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, new ImageIcon("Pictures\\CruiseShip2.png"));
-            default -> null;
+            default -> new CruiseShip(model, maxPassengers, maxSpeed, flag, avFuel, avLife, img);
         };
     }
 
@@ -638,7 +697,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private ElectricBicycle createElectricBicycle() {
         String[] color = new String[]{"Gray", "Red", "White"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the ElectricBicycle: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the ElectricBicycle: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -725,7 +788,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle2.png"));
             case "white" ->
                     new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle3.png"));
-            default -> null;
+            default -> new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, img);
         };
     }
     /**
@@ -734,7 +797,11 @@ public class CreateVehicle extends JFrame implements ActionListener {
      */
     private HybridPlane createHybridPlane() {
         String[] color = new String[]{"White", "Red"};
-        String option = (String)JOptionPane.showInputDialog(this, "Choose the color of the HybridPlane: ", "color", 3, (Icon)null, color, color[0]);
+        ImageIcon img = getImageFromUser();
+        String option = "";
+        if (img == null){
+            option = (String)JOptionPane.showInputDialog(this, "Choose the color of the HybridPlane: ", "color", 3, (Icon)null, color, color[0]);
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -854,10 +921,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
                     new HybridPlane(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\HybridPlane1.png"));
             case "Red" ->
                     new HybridPlane(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, new ImageIcon("Pictures\\HybridPlane2.png"));
-            default -> null;
+            default -> new HybridPlane(model, maxPassengers, maxSpeed, wheels, flag, witheWind, avFuel, avLife, img);
         };
     }
-
 
     /**
      * Adds a new vehicle to the existing array of vehicles.

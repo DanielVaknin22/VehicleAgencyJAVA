@@ -16,7 +16,6 @@ public class TestDrive extends JFrame implements ActionListener {
 
     /**
      * Creates a frame for test driving vehicles.
-     *
      * @param vehicle The array of available vehicles.
      */
     public TestDrive(ArrayList<Vehicle> vehicles) {
