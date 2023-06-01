@@ -18,12 +18,13 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
     private int index;
     private int actionType;
     private int km;
+    private Thread t_buy;
     private boolean firstTime;
 
     public buyPanel(int actionType){
         this.actionType = actionType;
         this.firstTime = true;
-        Thread t_buy = new Thread(this);
+        t_buy = new Thread(this);
         t_buy.start();
     }
 
@@ -63,6 +64,23 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
 
     private void testDrive(int index, int km) {
         MenuFrame.vehicles.get(index).Move(km);
+    }
+
+    public void update2() {
+        Thread t = new Thread(() -> {
+            try {
+                synchronized (MenuFrame.vehicles) {
+                    Random rand = new Random();
+                    int randomNum;
+                    randomNum = 5000 + rand.nextInt((10000 - 5000) + 1);
+                    Thread.sleep(randomNum);
+                    Thread.sleep(700);
+                }
+            } catch (InterruptedException e) {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        });
+        t.start();
     }
 
     public void update() {
@@ -115,19 +133,17 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                         Random rand = new Random();
                         int randomNum;
                         randomNum = rand.nextInt((10000 - 5000) + 5000);
-                        Thread.sleep(randomNum);
+                        t_buy.sleep(randomNum);
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
                     int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy this vehicle?", "Message", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
-                        //update();
                         MenuFrame.vehicles.get(i).endBuying();
                         JButton removedButton = vehicleButtons.remove(i); // Remove the corresponding button from the vehicleButtons list
                         this.remove(removedButton); // Remove the button from the buyPanel
                         MenuFrame.vehicles.remove(i);
                         update();
-                        //mainWindow.initImagePanel();
                         repaint();
                         break;
                     }
