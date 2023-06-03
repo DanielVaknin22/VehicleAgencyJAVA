@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class buyPanel extends JPanel implements Runnable, ActionListener {
-    private MenuFrame mainWindow;
     private ArrayList<JButton> vehicleButtons;
-    private int index;
     private int actionType;
     private int km;
     private Thread t_buy;
@@ -26,6 +24,9 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         this.firstTime = true;
         t_buy = new Thread(this);
         t_buy.start();
+    }
+    public void removeButton(Vehicle vehicle){
+        vehicleButtons.remove(vehicle);
     }
 
     @Override
@@ -66,23 +67,6 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         MenuFrame.vehicles.get(index).Move(km);
     }
 
-    public void update2() {
-        Thread t = new Thread(() -> {
-            try {
-                synchronized (MenuFrame.vehicles) {
-                    Random rand = new Random();
-                    int randomNum;
-                    randomNum = 5000 + rand.nextInt((10000 - 5000) + 1);
-                    Thread.sleep(randomNum);
-                    Thread.sleep(700);
-                }
-            } catch (InterruptedException e) {
-                JOptionPane.showMessageDialog(null, "Error");
-            }
-        });
-        t.start();
-    }
-
     public void update() {
         Thread t = new Thread(() -> {
             try {
@@ -101,11 +85,6 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         });
         t.start();
     }
-
-//    private boolean checkBeforBuy(Vehicle vehicle){
-//        for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
-//            if (MenuFrame.vehicles.get(i).getTest()
-//    }
 
     private boolean checkBeforeTest(Vehicle vehicle){
         for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
@@ -128,29 +107,12 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                         JOptionPane.showMessageDialog(null, "The vehicle is on test drive.");
                         break;
                     }
-                    MenuFrame.vehicles.get(i).startBuying();
-                    try {
-                        Random rand = new Random();
-                        int randomNum;
-                        randomNum = rand.nextInt((10000 - 5000) + 5000);
-                        t_buy.sleep(randomNum);
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to buy this vehicle?", "Message", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        MenuFrame.vehicles.get(i).endBuying();
-                        JButton removedButton = vehicleButtons.remove(i); // Remove the corresponding button from the vehicleButtons list
-                        this.remove(removedButton); // Remove the button from the buyPanel
-                        MenuFrame.vehicles.remove(i);
-                        update();
-                        repaint();
+                    sleepBuy s2 = new sleepBuy(this, MenuFrame.vehicles.get(i));
                         break;
                     }
-                    MenuFrame.vehicles.get(i).endBuying();
                 }
             }
-        } else if (actionType == 2) {
+         else if (actionType == 2) {
             for (int i = 0; i < vehicleButtons.size(); i++) {
                 if (e.getSource() == vehicleButtons.get(i)) {
                     if(MenuFrame.vehicles.get(i).getBuying()){

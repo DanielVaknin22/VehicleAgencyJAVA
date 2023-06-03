@@ -167,8 +167,12 @@ public class MenuFrame extends JFrame implements ActionListener, MouseListener {
                 System.out.println(vehicle);
             }
             BuyVehicle buyVehicle = new BuyVehicle(this, vehicles);
+//            Thread tBuy = new Thread(buyVehicle);
+//            tBuy.start();
         } else if (e.getSource() == buttons[2]) {
             TestDrive testDrive = new TestDrive(vehicles);
+//            Thread tTest = new Thread(testDrive);
+//            tTest.start();
         } else if (e.getSource() == buttons[3]) {
             ChangeFlag changeFlag = new ChangeFlag(vehicles);
         } else if (e.getSource() == buttons[4]) {

@@ -13,7 +13,6 @@ public class BuyVehicle extends JFrame implements ActionListener, Runnable {
     private ArrayList<JButton> vehicleButtons;
     private JButton returnToMenu = new JButton("Return to Menu");
     private static Vehicle vehicleInBuy = null;
-
     private buyPanel bPanel;
 
     /**
