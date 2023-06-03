@@ -7,12 +7,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+/**
+ * A class that handles the buying process of a vehicle with a delay.
+ */
 public class sleepBuy implements Runnable {
     private Vehicle vehicle;
     private Thread bThread;
     private buyPanel buy;
     private JDialog dialog;
 
+    /**
+     * Constructs a sleepBuy object with the specified buyPanel and Vehicle.
+     * @param buyP    The buyPanel object.
+     * @param vehicle The Vehicle object being bought.
+     */
     public sleepBuy(buyPanel buyP, Vehicle vehicle){
         this.vehicle = vehicle;
         this.buy = buyP;
@@ -20,6 +28,11 @@ public class sleepBuy implements Runnable {
         bThread.start();
     }
 
+
+    /**
+     * Shows a message dialog with the specified message and automatically closes it after 5 seconds.
+     * @param message The message to be displayed.
+     */
     public void showMessage(String message) {
         dialog = new JDialog();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -42,6 +55,10 @@ public class sleepBuy implements Runnable {
         dialog.setVisible(true);
     }
 
+    /**
+     * Executes the buying process with a random delay and prompts the user to confirm the purchase.
+     * If confirmed, the vehicle is removed from the list of vehicles.
+     */
     @Override
     public void run() {
         vehicle.startBuying();

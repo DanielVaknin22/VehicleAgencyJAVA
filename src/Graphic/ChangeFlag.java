@@ -20,8 +20,7 @@ public class ChangeFlag extends JFrame implements ActionListener {
 
     /**
      * Constructs a new ChangeFlag frame instance.
-     *
-     * @param vehicle An array of vehicles to change the flag for.
+     * @param vehicles An array of vehicles to change the flag for.
      */
     public ChangeFlag(ArrayList<Vehicle> vehicles) {
         //vehicles = vehicle;
