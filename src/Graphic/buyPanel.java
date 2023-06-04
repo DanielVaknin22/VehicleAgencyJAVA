@@ -12,9 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * A panel that displays available vehicles for buying or test driving.
- */
 public class buyPanel extends JPanel implements Runnable, ActionListener {
     private ArrayList<JButton> vehicleButtons;
     private int actionType;
@@ -22,32 +19,22 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
     private Thread t_buy;
     private boolean firstTime;
 
-    /**
-     * Constructs a buyPanel object with the specified action type.
-     * @param actionType The type of action to be performed (1 for test drive, 2 for buying).
-     */
     public buyPanel(int actionType){
         this.actionType = actionType;
         this.firstTime = true;
         t_buy = new Thread(this);
         t_buy.start();
     }
-
-    /**
-     * Removes the button associated with the specified vehicle.
-     * @param vehicle The vehicle for which the button needs to be removed.
-     */
     public void removeButton(Vehicle vehicle){
         vehicleButtons.remove(vehicle);
     }
 
-    /**
-     * Executes the continuous update loop to display available vehicles.
-     */
     @Override
     public void run() {
         int size = MenuFrame.vehicles.size();
+        System.out.println("r1:" + size);
         while (true) {
+            System.out.println("r2:" + MenuFrame.vehicles.size());
             if (MenuFrame.vehicles.size() != size || firstTime ) {
                 this.removeAll();
                 firstTime = false;
@@ -76,18 +63,10 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         }
     }
 
-    /**
-     * Performs the test drive action for the specified vehicle.
-     * @param index The index of the vehicle in the vehicleButtons list.
-     * @param km    The distance to be driven in the test drive.
-     */
     private void testDrive(int index, int km) {
         MenuFrame.vehicles.get(index).Move(km);
     }
 
-    /**
-     * Updates the buyPanel by simulating a loading process and refreshing the vehicle list.
-     */
     public void update() {
         Thread t = new Thread(() -> {
             try {
@@ -107,11 +86,6 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         t.start();
     }
 
-    /**
-     * Checks if a vehicle of the same type is already on test drive.
-     * @param vehicle The vehicle to be checked.
-     * @return true if a vehicle of the same type is on test drive, false otherwise.
-     */
     private boolean checkBeforeTest(Vehicle vehicle){
         for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
             if (MenuFrame.vehicles.get(i).getTest() && ((MenuFrame.vehicles.get(i) instanceof IMarine && vehicle instanceof IMarine)
@@ -124,10 +98,6 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
         return false;
     }
 
-    /**
-     * Performs the action associated with the button click.
-     * @param e The action event object.
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (actionType == 1) {
@@ -138,11 +108,11 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                         break;
                     }
                     sleepBuy s2 = new sleepBuy(this, MenuFrame.vehicles.get(i));
-                        break;
-                    }
+                    break;
                 }
             }
-         else if (actionType == 2) {
+        }
+        else if (actionType == 2) {
             for (int i = 0; i < vehicleButtons.size(); i++) {
                 if (e.getSource() == vehicleButtons.get(i)) {
                     if(MenuFrame.vehicles.get(i).getBuying()){
