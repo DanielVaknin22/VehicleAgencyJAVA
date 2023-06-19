@@ -38,7 +38,7 @@ public class paintPanel extends JPanel implements Runnable, MouseListener {
                     JButton imageButton = new JButton(new ImageIcon(scaledImage));
                     imageButton.setPreferredSize(new Dimension(150, 120));
                     Color color1 = MenuFrame.vehicles.get(i).getColor();
-                    Border border = BorderFactory.createLineBorder(Color.color1, 5);
+                    Border border = BorderFactory.createLineBorder(Color., 5);
                     imageButton.setBorder(border);
                     if (i == MenuFrame.vehicles.size() / 2) {
                         y = 525;
