@@ -6,6 +6,7 @@ import vehicle.IMarine;
 import vehicle.Vehicle;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +32,7 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
 
     @Override
     public void run() {
+        Border border = null;
         int size = MenuFrame.vehicles.size();
         System.out.println("r1:" + size);
         while (true) {
@@ -47,6 +49,32 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                     Image scaledImage = image.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
                     JButton button = new JButton(new ImageIcon(scaledImage));
                     button.setPreferredSize(new Dimension(150, 120));
+                    Color color1 = MenuFrame.vehicles.get(i).getColor();
+                    if(color1 == Color.RED){
+                        border = BorderFactory.createLineBorder(Color.RED, 5);
+                    }
+                    if(color1 == Color.GRAY){
+                        border = BorderFactory.createLineBorder(Color.GRAY, 5);
+                    }
+                    if(color1 == Color.GREEN){
+                        border = BorderFactory.createLineBorder(Color.GREEN, 5);
+                    }
+                    if(color1 == Color.MAGENTA){
+                        border = BorderFactory.createLineBorder(Color.MAGENTA, 5);
+                    }
+                    if(color1 == Color.YELLOW){
+                        border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+                    }
+                    if(color1 == Color.BLUE){
+                        border = BorderFactory.createLineBorder(Color.BLUE, 5);
+                    }
+                    if(color1 == Color.WHITE){
+                        border = BorderFactory.createLineBorder(Color.WHITE, 5);
+                    }
+                    if(color1 == Color.BLACK){
+                        border = BorderFactory.createLineBorder(Color.BLACK, 5);
+                    }
+                    button.setBorder(border);
                     if (i == MenuFrame.vehicles.size() / 2) {
                         y = 525;
                         x = 15;
@@ -105,6 +133,7 @@ public class buyPanel extends JPanel implements Runnable, ActionListener {
                 if (e.getSource() == vehicleButtons.get(i)) {
                     if (MenuFrame.vehicles.get(i).getTest()) {
                         JOptionPane.showMessageDialog(null, "The vehicle is on test drive.");
+                        //MenuFrame.vehicles.get(i).setStatus("In Test");
                         break;
                     }
                     sleepBuy s2 = new sleepBuy(this, MenuFrame.vehicles.get(i));

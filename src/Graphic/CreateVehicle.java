@@ -252,6 +252,7 @@ public class CreateVehicle extends JFrame implements ActionListener {
         Jeep jeep = (Jeep) vehicleFactory.create("Jeep", model, maxSpeed,0,img, color1);
         jeep.setAverageFuel(avFuel);
         jeep.setAverageLife(avLife);
+
 //        Border border = BorderFactory.createLineBorder(Color.getColor(color1), 2);
         return jeep;
     }
@@ -268,6 +269,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null) {
             option = (String) JOptionPane.showInputDialog(this, "Choose the color of the Frigate: ", "color", 3, (Icon) null, color, color[0]);
+        }
+        else {
+            color1 = borderColor();
         }
         String model;
         while (true) {
@@ -362,6 +366,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Game: ", "color", 3, (Icon)null, color, color[0]);
         }
+        else {
+            color1 = borderColor();
+        }
         switch (option) {
             case "Blue":
                 img = new ImageIcon("Pictures\\Game1.png");
@@ -394,6 +401,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Spy: ", "color", 3, (Icon)null, color, color[0]);
+        }
+        else {
+            color1 = borderColor();
         }
         String power;
         while (true) {
@@ -434,6 +444,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Amphibious: ", "color", 3, (Icon)null, color, color[0]);
+        }
+        else {
+            color1 = borderColor();
         }
         String model;
         while (true) {
@@ -587,6 +600,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Bicycle: ", "color", 3, (Icon)null, color, color[0]);
         }
+        else {
+            color1 = borderColor();
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -682,6 +698,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the Cruise Ship: ", "color", 3, (Icon)null, color, color[0]);
+        }
+        else {
+            color1 = borderColor();
         }
         String model;
         while (true) {
@@ -807,6 +826,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the ElectricBicycle: ", "color", 3, (Icon)null, color, color[0]);
         }
+        else {
+            color1 = borderColor();
+        }
         String model;
         while (true) {
             model = JOptionPane.showInputDialog(this, "Enter Model: ");
@@ -922,6 +944,9 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null){
             option = (String)JOptionPane.showInputDialog(this, "Choose the color of the HybridPlane: ", "color", 3, (Icon)null, color, color[0]);
+        }
+        else {
+            color1 = borderColor();
         }
         String model;
         while (true) {

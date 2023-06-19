@@ -95,6 +95,8 @@ public abstract class Vehicle {
         return maxSpeed;
     }
 
+    public void setStatus(){ }
+
     public void setModel(String model) {
         this.model = model;
     }

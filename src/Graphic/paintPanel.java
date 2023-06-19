@@ -17,6 +17,7 @@ public class paintPanel extends JPanel implements Runnable, MouseListener {
     }
     @Override
     public void run() {
+        Border border = null;
         int size = MenuFrame.vehicles.size();
         System.out.println("s1:" + size);
         while(true) {
@@ -38,7 +39,30 @@ public class paintPanel extends JPanel implements Runnable, MouseListener {
                     JButton imageButton = new JButton(new ImageIcon(scaledImage));
                     imageButton.setPreferredSize(new Dimension(150, 120));
                     Color color1 = MenuFrame.vehicles.get(i).getColor();
-                    Border border = BorderFactory.createLineBorder(Color., 5);
+                    if(color1 == Color.RED){
+                        border = BorderFactory.createLineBorder(Color.RED, 5);
+                    }
+                    if(color1 == Color.GRAY){
+                        border = BorderFactory.createLineBorder(Color.GRAY, 5);
+                    }
+                    if(color1 == Color.GREEN){
+                        border = BorderFactory.createLineBorder(Color.GREEN, 5);
+                    }
+                    if(color1 == Color.MAGENTA){
+                        border = BorderFactory.createLineBorder(Color.MAGENTA, 5);
+                    }
+                    if(color1 == Color.YELLOW){
+                        border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+                    }
+                    if(color1 == Color.BLUE){
+                        border = BorderFactory.createLineBorder(Color.BLUE, 5);
+                    }
+                    if(color1 == Color.WHITE){
+                        border = BorderFactory.createLineBorder(Color.WHITE, 5);
+                    }
+                    if(color1 == Color.BLACK){
+                        border = BorderFactory.createLineBorder(Color.BLACK, 5);
+                    }
                     imageButton.setBorder(border);
                     if (i == MenuFrame.vehicles.size() / 2) {
                         y = 525;
