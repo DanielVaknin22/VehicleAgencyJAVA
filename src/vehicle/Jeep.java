@@ -5,6 +5,7 @@ package vehicle;
  * It extends the Land class and implements the Motorized and Commercial interfaces.
  */
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
@@ -22,8 +23,8 @@ public class Jeep extends Vehicle implements Motorized, Commercial, ILand{
      * @param life The average lifespan of the Jeep in years.
      * @param img The img of the Jeep.
      */
-    public Jeep(String model, int maxSpeed, float fuel, float life, ImageIcon img) {
-        super(model, 5, maxSpeed, img);
+    public Jeep(String model, int maxSpeed, float fuel, float life, ImageIcon img, Color color) {
+        super(model, 5, maxSpeed, img, color);
         this.wheels = 4;
         this.roadType = "dirt";
         this.fuel = fuel;

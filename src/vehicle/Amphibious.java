@@ -1,6 +1,7 @@
 package vehicle;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
     private boolean withWind;
@@ -23,8 +24,8 @@ public class Amphibious extends Vehicle implements IMarine, ILand, Motorized{
      * @param life the average life expectancy of the vehicle
      * @param img the image representing the amphibious vehicle
      */
-    public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life, ImageIcon img) {
-        super(model, maxPassengers, maxSpeed,img);
+    public Amphibious(String model, int maxPassengers, int maxSpeed, int wheels, String flag, boolean withWind, float fuel, float life, ImageIcon img, Color color) {
+        super(model, maxPassengers, maxSpeed,img, color);
         this.roadType = "paved";
         this.flag = flag;
         this.withWind = withWind;

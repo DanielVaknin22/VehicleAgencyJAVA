@@ -3,6 +3,7 @@ package Graphic;
 import vehicle.Vehicle;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,6 +26,9 @@ public class paintPanel extends JPanel implements Runnable, MouseListener {
                 size = MenuFrame.vehicles.size();
                 int x = 15, y = 400;
                 for (int i = 0; i < MenuFrame.vehicles.size(); i++) {
+
+                    System.out.println("color: " + MenuFrame.vehicles.get(i).getColor());
+
 //                for (Vehicle vehicle : MenuFrame.vehicles) {
 //                    System.out.println(vehicle);
 //                }
@@ -33,6 +37,9 @@ public class paintPanel extends JPanel implements Runnable, MouseListener {
                     Image scaledImage = image.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
                     JButton imageButton = new JButton(new ImageIcon(scaledImage));
                     imageButton.setPreferredSize(new Dimension(150, 120));
+                    Color color1 = MenuFrame.vehicles.get(i).getColor();
+                    Border border = BorderFactory.createLineBorder(Color.color1, 5);
+                    imageButton.setBorder(border);
                     if (i == MenuFrame.vehicles.size() / 2) {
                         y = 525;
                         x = 15;

@@ -1,6 +1,7 @@
 package vehicle;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ElectricBicycle extends Vehicle implements ILand, Motorized {
     private int wheels;
@@ -8,8 +9,8 @@ public class ElectricBicycle extends Vehicle implements ILand, Motorized {
     private float life;
     private String roadType;
 
-    public ElectricBicycle(String model, int maxPassengers, int maxSpeed, String roadType, float life, ImageIcon img){
-        super(model,maxPassengers,maxSpeed,img);
+    public ElectricBicycle(String model, int maxPassengers, int maxSpeed, String roadType, float life, ImageIcon img, Color color){
+        super(model,maxPassengers,maxSpeed,img, color);
         this.roadType = roadType;
         this.wheels = 2;
         this.fuel = 20;

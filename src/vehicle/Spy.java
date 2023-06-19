@@ -4,6 +4,7 @@ package vehicle;
  */
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Spy extends Vehicle implements noMotorized, IAir{
     private String power;
@@ -15,8 +16,8 @@ public class Spy extends Vehicle implements noMotorized, IAir{
      * @param power the source of power of the Spy.
      * @param img The img of the Spy.
      */
-    public Spy(String power, ImageIcon img) {
-        super("private" ,1 , 50,img);
+    public Spy(String power, ImageIcon img, Color color) {
+        super("private" ,1 , 50,img, color);
         this.use = "military";
         this.energy = energyScore.C;
         this.power = power;

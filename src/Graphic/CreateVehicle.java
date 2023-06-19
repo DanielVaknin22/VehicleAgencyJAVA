@@ -3,6 +3,7 @@ package Graphic;
 import AbstractFactory.VehicleFactory;
 import vehicle.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 public class CreateVehicle extends JFrame implements ActionListener {
     private static JButton[] ArrJButton = new JButton[10];
     private MenuFrame mainWindow;
+    private Color color1 = null;
+    private Color color2 = null;
     private VehicleFactory vehicleFactory = new VehicleFactory();
 
     public CreateVehicle(MenuFrame windows, ArrayList<Vehicle> vehicles) {
@@ -97,6 +100,23 @@ public class CreateVehicle extends JFrame implements ActionListener {
         }
     }
 
+    public Color borderColor(){
+        String[] colorBorder = new String[]{"Blue", "Red", "Green"};
+        String option = (String) JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "Color", JOptionPane.PLAIN_MESSAGE, null, colorBorder, colorBorder[0]);
+        switch (option) {
+            case "Blue":
+                color2 = Color.BLUE;
+                break;
+            case "Red":
+                color2 = Color.RED;
+                break;
+            case "Green":
+                color2 = Color.GREEN;
+                break;
+        }
+        return color2;
+    }
+
     /**
      * Initializes the buttons for vehicle types.
      */
@@ -142,6 +162,8 @@ public class CreateVehicle extends JFrame implements ActionListener {
         String option = "";
         if (img == null) {
             option = (String) JOptionPane.showInputDialog(this, "Choose the color of the Jeep: ", "Color", JOptionPane.PLAIN_MESSAGE, null, color, color[0]);
+        } else {
+            color1 = borderColor();
         }
         String model;
         while (true) {
@@ -212,20 +234,25 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Grey":
                 img = new ImageIcon("Pictures\\jeep1.png");
+                color1 = Color.GRAY;
                 break;
             case "Red":
                 img = new ImageIcon("Pictures\\jeep2.png");
+                color1 = Color.RED;
                 break;
             case "White":
                 img = new ImageIcon("Pictures\\jeep3.png");
+                color1 = Color.WHITE;
                 break;
             case "Blue":
                 img = new ImageIcon("Pictures\\jeep4.png");
+                color1 = Color.BLUE;
                 break;
         }
-        Jeep jeep = (Jeep) vehicleFactory.create("Jeep", model, maxSpeed,0,img);
+        Jeep jeep = (Jeep) vehicleFactory.create("Jeep", model, maxSpeed,0,img, color1);
         jeep.setAverageFuel(avFuel);
         jeep.setAverageLife(avLife);
+//        Border border = BorderFactory.createLineBorder(Color.getColor(color1), 2);
         return jeep;
     }
 
@@ -294,15 +321,18 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Grey":
                 img = new ImageIcon("Pictures\\Frigate2.png");
+                color1 = Color.GRAY;
                 break;
             case "White":
                 img = new ImageIcon("Pictures\\Frigate1.png");
+                color1 = Color.WHITE;
                 break;
             case "Green":
                 img = new ImageIcon("Pictures\\Frigate3.png");
+                color1 = Color.GREEN;
                 break;
         }
-        Frigate frigate = (Frigate) vehicleFactory.create("Frigate", model, maxSpeed, maxPassengers, img);
+        Frigate frigate = (Frigate) vehicleFactory.create("Frigate", model, maxSpeed, maxPassengers, img, color1);
         frigate.setWithWind(witheWind);
         return frigate;
     }
@@ -335,18 +365,22 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Blue":
                 img = new ImageIcon("Pictures\\Game1.png");
+                color1 = Color.BLUE;
                 break;
             case "Red":
                 img = new ImageIcon("Pictures\\Game2.png");
+                color1 = Color.RED;
                 break;
             case "Green":
                 img = new ImageIcon("Pictures\\Game3.png");
+                color1 = Color.GREEN;
                 break;
             case "Grey":
                 img = new ImageIcon("Pictures\\Game4.png");
+                color1 = Color.GRAY;
                 break;
         }
-        Game game = (Game) vehicleFactory.create("Game", null, 0,0, img);
+        Game game = (Game) vehicleFactory.create("Game", null, 0,0, img, color1);
         return game;
     }
 
@@ -378,12 +412,14 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Black":
                 img = new ImageIcon("Pictures\\Spy1.png");
+                color1 = Color.BLACK;
                 break;
             case "White":
                 img = new ImageIcon("Pictures\\Spy2.png");
+                color1 = Color.WHITE;
                 break;
         }
-        Spy spy = (Spy) vehicleFactory.create("Spy", null, 0,0,img);
+        Spy spy = (Spy) vehicleFactory.create("Spy", null, 0,0,img, color1);
         spy.setPowerSource(power);
         return spy;
     }
@@ -516,18 +552,22 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Yellow":
                 img = new ImageIcon("Pictures\\amphibious1.png");
+                color1 = Color.YELLOW;
                 break;
             case "Black":
                 img = new ImageIcon("Pictures\\amphibious2.png");
+                color1 = Color.BLACK;
                 break;
             case "Red":
                 img = new ImageIcon("Pictures\\amphibious3.png");
+                color1 = Color.RED;
                 break;
             case "Military":
                 img = new ImageIcon("Pictures\\amphibious4.png");
+                color1 = Color.GREEN;
                 break;
         }
-        Amphibious amphibious = (Amphibious) vehicleFactory.create("Amphibious", model, maxSpeed,maxPassengers,img);
+        Amphibious amphibious = (Amphibious) vehicleFactory.create("Amphibious", model, maxSpeed,maxPassengers,img, color1);
         amphibious.setWheels(wheels);
         amphibious.setFlag(flag);
         amphibious.setWithWind(witheWind);
@@ -612,18 +652,22 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Red":
                 img = new ImageIcon("Pictures\\Bicycle1.png");
+                color1 = Color.RED;
                 break;
             case "Blue":
                 img = new ImageIcon("Pictures\\Bicycle2.png");
+                color1 = Color.BLUE;
                 break;
             case "Purple":
                 img = new ImageIcon("Pictures\\Bicycle3.png");
+                color1 = Color.MAGENTA;
                 break;
             case "Black":
                 img = new ImageIcon("Pictures\\Bicycle4.png");
+                color1 = Color.BLACK;
                 break;
         }
-        Bicycle bicycle = (Bicycle) vehicleFactory.create("Bicycle", model, maxSpeed,maxPassengers,img);
+        Bicycle bicycle = (Bicycle) vehicleFactory.create("Bicycle", model, maxSpeed,maxPassengers,img, color1);
         bicycle.setRoadType(roadType);
         return bicycle;
     }
@@ -738,12 +782,14 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "Blue":
                 img = new ImageIcon("Pictures\\CruiseShip1.png");
+                color1 = Color.BLUE;
                 break;
             case "White":
                 img = new ImageIcon("Pictures\\CruiseShip2.png");
+                color1 = Color.WHITE;
                 break;
         }
-        CruiseShip cruiseShip = (CruiseShip) vehicleFactory.create("CruiseShip", model, maxSpeed,maxPassengers,img);
+        CruiseShip cruiseShip = (CruiseShip) vehicleFactory.create("CruiseShip", model, maxSpeed,maxPassengers,img, color1);
         cruiseShip.setFlag(flag);
         cruiseShip.setAverageFuel(avFuel);
         cruiseShip.setAverageLife(avLife);
@@ -842,12 +888,12 @@ public class CreateVehicle extends JFrame implements ActionListener {
         }
         return switch (option) {
             case "Gray" ->
-                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle1.png"));
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle1.png"), Color.GRAY);
             case "Red" ->
-                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle2.png"));
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle2.png"), Color.RED);
             case "white" ->
-                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle3.png"));
-            default -> new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, img);
+                    new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, new ImageIcon("Pictures\\ElectricBicycle3.png"), Color.WHITE);
+            default -> new ElectricBicycle(model, maxPassengers, maxSpeed, roadType, avLife, img, color1);
         };
 //        switch (option) {
 //            case "Grey":
@@ -994,12 +1040,14 @@ public class CreateVehicle extends JFrame implements ActionListener {
         switch (option) {
             case "White":
                 img = new ImageIcon("Pictures\\HybridPlane1.png");
+                color1 = Color.WHITE;
                 break;
             case "Red":
                 img = new ImageIcon("Pictures\\HybridPlane2.png");
+                color1 = Color.RED;
                 break;
         }
-        HybridPlane hybridPlane = (HybridPlane) vehicleFactory.create("HybridPlane", model, maxSpeed,maxPassengers,img);
+        HybridPlane hybridPlane = (HybridPlane) vehicleFactory.create("HybridPlane", model, maxSpeed,maxPassengers,img, color1);
         hybridPlane.setWheels(wheels);
         hybridPlane.setFlag(flag);
         hybridPlane.setWithWind(witheWind);

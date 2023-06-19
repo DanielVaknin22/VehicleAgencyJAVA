@@ -1,6 +1,7 @@
 package vehicle;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercial{
     private boolean withWind;
@@ -20,8 +21,8 @@ public class CruiseShip extends Vehicle implements IMarine, Motorized, Commercia
      * @param life the average life expectancy of the cruise ship
      * @param img the image representing the cruise ship
      */
-    public CruiseShip(String model, int maxPassengers, int maxSpeed, String flag, float fuel, float life, ImageIcon img) {
-        super(model, maxPassengers, maxSpeed, img);
+    public CruiseShip(String model, int maxPassengers, int maxSpeed, String flag, float fuel, float life, ImageIcon img, Color color) {
+        super(model, maxPassengers, maxSpeed, img, color);
         this.withWind = true;
         this.flag = flag;
         this.fuel = fuel;

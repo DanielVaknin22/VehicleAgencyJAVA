@@ -1,6 +1,7 @@
 package vehicle;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Bicycle extends Vehicle implements noMotorized, ILand{
 
@@ -18,8 +19,8 @@ public class Bicycle extends Vehicle implements noMotorized, ILand{
      * @param roadType the type of road the bicycle is suitable for
      * @param img the image representing the bicycle
      */
-    public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType, ImageIcon img) {
-        super(model, maxPassengers, maxSpeed,img);
+    public Bicycle(String model, int maxPassengers, int maxSpeed, String roadType, ImageIcon img, Color color) {
+        super(model, maxPassengers, maxSpeed,img, color);
         this.roadType = roadType;
         this.energy = energyScore.A;
         this.power = "manual";

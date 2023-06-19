@@ -7,6 +7,7 @@ package vehicle;
  It extends the SeaTransportation class and implements the Motorized interface.
  */
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 public class Frigate extends Vehicle implements Motorized, IMarine{
@@ -24,8 +25,8 @@ public class Frigate extends Vehicle implements Motorized, IMarine{
      * @param withWind a boolean indicating whether or not the frigate can sail with the wind
      * @param img The img of the Frigate.
      */
-    public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind, ImageIcon img) {
-        super(model, maxPassengers, maxSpeed, img);
+    public Frigate(String model, int maxPassengers, int maxSpeed, boolean withWind, ImageIcon img, Color color) {
+        super(model, maxPassengers, maxSpeed, img, color);
         this.withWind = withWind;
         this.flag = "Israel";
         this.fuel = 500;

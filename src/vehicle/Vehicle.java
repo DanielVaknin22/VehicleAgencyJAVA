@@ -3,9 +3,10 @@ package vehicle;
  * The Vehicle class represents a generic vehicle with a model name, distance traveled, maximum number of passengers, and maximum speed.
  */
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
-public abstract class Vehicle{
+public abstract class Vehicle {
     protected String model;
     protected int km;
     protected int maxPassengers;
@@ -13,13 +14,16 @@ public abstract class Vehicle{
     protected ImageIcon img;
     protected int inBuyProcess;
     protected int testDrive;
+    protected Color color;
+
     /**
      * Constructs a new Vehicle object with the given model, maximum number of passengers, and maximum speed.
-     * @param model the model of the vehicle
+     *
+     * @param model         the model of the vehicle
      * @param maxPassengers the maximum number of passengers the vehicle can carry
-     * @param maxSpeed the maximum speed of the vehicle
+     * @param maxSpeed      the maximum speed of the vehicle
      */
-    public Vehicle(String model, int maxPassengers, int maxSpeed, ImageIcon img) {
+    public Vehicle(String model, int maxPassengers, int maxSpeed, ImageIcon img, Color color) {
         this.model = model;
         this.km = 0;
         this.inBuyProcess = 0;
@@ -27,41 +31,51 @@ public abstract class Vehicle{
         this.maxPassengers = maxPassengers;
         this.maxSpeed = maxSpeed;
         this.img = img;
+        this.color = color;
     }
 
+    public Color getColor() {
+        return this.color;
+    }
 
-    public ImageIcon getImg(){
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public ImageIcon getImg() {
         return this.img;
     }
 
-    public void startTest(){
+    public void startTest() {
         this.testDrive = 1;
     }
 
-    public void endTest(){
+    public void endTest() {
         this.testDrive = 0;
     }
 
-    public boolean getTest(){
+    public boolean getTest() {
         return this.testDrive == 1;
     }
-    public void startBuying(){
+
+    public void startBuying() {
         this.inBuyProcess = 1;
     }
 
-    public void endBuying(){
+    public void endBuying() {
         this.inBuyProcess = 0;
     }
 
-    public boolean getBuying(){
+    public boolean getBuying() {
         return this.inBuyProcess == 1;
     }
 
     /**
      * Moves the vehicle a given distance in kilometers.
+     *
      * @param distance the distance to move the vehicle in kilometers
      */
-    public void Move(int distance){
+    public void Move(int distance) {
         this.km += distance;
     }
 
@@ -92,6 +106,7 @@ public abstract class Vehicle{
     public void setMaxPassengers(int maxPassengers) {
         this.maxPassengers = maxPassengers;
     }
+
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
@@ -99,6 +114,7 @@ public abstract class Vehicle{
     /**
      * toString method for vehicle objects. a string representation of the vehicle, including its model, distance traveled, maximum speed,
      * and maximum number of passengers.
+     *
      * @return a string representation of the vehicle.
      */
     @Override
@@ -112,6 +128,7 @@ public abstract class Vehicle{
 
     /**
      * Determines Vehicle object are equal to another Vehicle object by comparing all data members.
+     *
      * @param o the object to compare to this one
      * @return true if this object is the same as the o argument; false otherwise
      */
